@@ -21,8 +21,8 @@ export default function ForgotPage() {
           <input type="number" placeholder="Enter OTP" id="password" />
           <label htmlFor="password">New password</label>
           <input type="password" placeholder="New password" id="password" />
-          <label htmlFor="password">Re-enter password</label>
-          <input type="password" placeholder="Re-enter password" id="password" />
+          <label htmlFor="password">Re-enter new password</label>
+          <input type="password" placeholder="Re-enter new password" id="password" />
           <button type='button' className='allbuttonForgot'>Continue</button>
         </form>
     </div>

@@ -25,8 +25,8 @@ export default function Login() {
           </div>
           <button type="button" className='allbutton'>Log in</button>
           <div className="social">
-            <div className="go"><i className="fab fa-google" />  Google</div>
-            <div className="fb"><i className="far fa-envelope" />  Email</div>
+            <div className="go" style={{cursor: "pointer"}}><i className="fab fa-google" style={{cursor: "pointer"}}/>  Google</div>
+            <div className="fb" style={{cursor: "pointer"}}><i className="far fa-envelope" style={{cursor: "pointer"}}/>  Email</div>
           </div>
         </form>
     </div>

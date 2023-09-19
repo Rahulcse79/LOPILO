@@ -24,13 +24,13 @@ export default function profile() {
             <div className="collapse mt-sm-20 navbar-collapse" id="navbarSupportedContent">
               <ul className="navbar-nav mr-auto">
                 <li className="nav-item">
-                  <a href="home" className="nav-link">Home</a>
+                  <a href="#" className="nav-link">Home</a>
                 </li>
                 <li className="nav-item">
-                  <a href="about" className="nav-link">About</a>
+                  <a href="#" className="nav-link">About</a>
                 </li>
                 <li className="nav-item">
-                  <a href="photos" className="nav-link">Photos</a>
+                  <a href="#" className="nav-link">Photos</a>
                 </li>
               </ul>
               <ul className="navbar-nav brand">
@@ -38,7 +38,7 @@ export default function profile() {
               </ul>
               <ul className="navbar-nav ml-auto">
                 <li className="nav-item">
-                  <a href="Add-store" className="nav-link">Add store</a>
+                  <a href="Shopkeeper" className="nav-link">Shopkeeper</a>
                 </li>
                 <li className="nav-item">
                   <a href="Log-in" className="nav-link">Log in</a>
@@ -50,7 +50,89 @@ export default function profile() {
             </div>
           </div>
         </nav>
-      
+
+         {/*top 10 wines*/}
+        <section className="section bg-dark py-5">
+          <div className="container text-center">
+            <h2 className="text-light mb-5 font-weight-normal" style={{marginTop: "90px"}}>Top 10 wines</h2>
+          </div>
+        </section>
+
+        <section className="section" id="service">
+          <div className="container">
+            <div className="row">
+              <div className="col-md-4 col-sm-6">
+                <div className="card mb-5">
+                  <div className="card-header has-icon">
+                    <i className="ti-vector text-danger" aria-hidden="true" />
+                  </div>
+                  <div className="card-body px-4 py-3">
+                    <h5 className="mb-3 card-title text-dark">Heading</h5>
+                    <p className="subtitle">msg</p>
+                  </div>
+                </div>
+              </div>
+              <div className="col-md-4 col-sm-6">
+                <div className="card mb-5">
+                  <div className="card-header has-icon">
+                    <i className="ti-write text-danger" aria-hidden="true" />
+                  </div>
+                  <div className="card-body px-4 py-3">
+                    <h5 className="mb-3 card-title text-dark">Heading</h5>
+                    <p className="subtitle">msg</p>
+                  </div>
+                </div>
+              </div>
+              <div className="col-md-4 col-sm-6">
+                <div className="card mb-5">
+                  <div className="card-header has-icon">
+                    <i className="ti-package text-danger" aria-hidden="true" />
+                  </div>
+                  <div className="card-body px-4 py-3">
+                    <h5 className="mb-3 card-title text-dark">Heading</h5>
+                    <p className="subtitle">msg</p>
+                  </div>
+                </div>
+              </div>
+              <div className="col-md-4 col-sm-6">
+                <div className="card mb-5">
+                  <div className="card-header has-icon">
+                    <i className="ti-map-alt text-danger" aria-hidden="true" />
+                  </div>
+                  <div className="card-body px-4 py-3">
+                    <h5 className="mb-3 card-title text-dark">Heading</h5>
+                    <p className="subtitle">msg</p>
+                  </div>
+                </div>
+              </div>
+              <div className="col-md-4 col-sm-6">
+                <div className="card mb-5">
+                  <div className="card-header has-icon">
+                    <i className="ti-bar-chart text-danger" aria-hidden="true" />
+                  </div>
+                  <div className="card-body px-4 py-3">
+                    <h5 className="mb-3 card-title text-dark">Heading</h5>
+                    <p className="subtitle">msg</p>
+                  </div>
+                </div>
+              </div>
+              <div className="col-md-4 col-sm-6">
+                <div className="card mb-5">
+                  <div className="card-header has-icon">
+                    <i className="ti-support text-danger" aria-hidden="true" />
+                  </div>
+                  <div className="card-body px-4 py-3">
+                    <h5 className="mb-3 card-title text-dark">Heading</h5>
+                    <p className="subtitle">msg</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/*our services*/}
+
         <section className="section" id="service">
           <div className="container">
             <h2 className="mb-5 pb-4"><span className="text-danger">My</span> Services</h2>
@@ -61,8 +143,8 @@ export default function profile() {
                     <i className="ti-vector text-danger" aria-hidden="true" />
                   </div>
                   <div className="card-body px-4 py-3">
-                    <h5 className="mb-3 card-title text-dark">Ullam</h5>
-                    <p className="subtitle">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ullam commodi provident, dolores reiciendis enim pariatur error optio, tempora ex, nihil nesciunt! In praesentium sunt commodi, unde ipsam ex veritatis laboriosam dolor asperiores suscipit blanditiis, dignissimos quos nesciunt nulla aperiam officia.</p>
+                    <h5 className="mb-3 card-title text-dark">Heading</h5>
+                    <p className="subtitle">msg</p>
                   </div>
                 </div>
               </div>
@@ -72,8 +154,8 @@ export default function profile() {
                     <i className="ti-write text-danger" aria-hidden="true" />
                   </div>
                   <div className="card-body px-4 py-3">
-                    <h5 className="mb-3 card-title text-dark">Asperiores</h5>
-                    <p className="subtitle">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ullam commodi provident, dolores reiciendis enim pariatur error optio, tempora ex, nihil nesciunt! In praesentium sunt commodi, unde ipsam ex veritatis laboriosam dolor asperiores suscipit blanditiis, dignissimos quos nesciunt nulla aperiam officia.</p>
+                    <h5 className="mb-3 card-title text-dark">Heading</h5>
+                    <p className="subtitle">msg</p>
                   </div>
                 </div>
               </div>
@@ -83,8 +165,8 @@ export default function profile() {
                     <i className="ti-package text-danger" aria-hidden="true" />
                   </div>
                   <div className="card-body px-4 py-3">
-                    <h5 className="mb-3 card-title text-dark">Tempora</h5>
-                    <p className="subtitle">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ullam commodi provident, dolores reiciendis enim pariatur error optio, tempora ex, nihil nesciunt! In praesentium sunt commodi, unde ipsam ex veritatis laboriosam dolor asperiores suscipit blanditiis, dignissimos quos nesciunt nulla aperiam officia.</p>
+                    <h5 className="mb-3 card-title text-dark">Heading</h5>
+                    <p className="subtitle">msg</p>
                   </div>
                 </div>
               </div>
@@ -94,8 +176,8 @@ export default function profile() {
                     <i className="ti-map-alt text-danger" aria-hidden="true" />
                   </div>
                   <div className="card-body px-4 py-3">
-                    <h5 className="mb-3 card-title text-dark">Provident</h5>
-                    <p className="subtitle">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ullam commodi provident, dolores reiciendis enim pariatur error optio, tempora ex, nihil nesciunt! In praesentium sunt commodi, unde ipsam ex veritatis laboriosam dolor asperiores suscipit blanditiis, dignissimos quos nesciunt nulla aperiam officia.</p>
+                    <h5 className="mb-3 card-title text-dark">Heading</h5>
+                    <p className="subtitle">msg</p>
                   </div>
                 </div>
               </div>
@@ -105,8 +187,8 @@ export default function profile() {
                     <i className="ti-bar-chart text-danger" aria-hidden="true" />
                   </div>
                   <div className="card-body px-4 py-3">
-                    <h5 className="mb-3 card-title text-dark">Consectetur</h5>
-                    <p className="subtitle">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ullam commodi provident, dolores reiciendis enim pariatur error optio, tempora ex, nihil nesciunt! In praesentium sunt commodi, unde ipsam ex veritatis laboriosam dolor asperiores suscipit blanditiis, dignissimos quos nesciunt nulla aperiam officia.</p>
+                    <h5 className="mb-3 card-title text-dark">Heading</h5>
+                    <p className="subtitle">msg</p>
                   </div>
                 </div>
               </div>
@@ -116,19 +198,12 @@ export default function profile() {
                     <i className="ti-support text-danger" aria-hidden="true" />
                   </div>
                   <div className="card-body px-4 py-3">
-                    <h5 className="mb-3 card-title text-dark">Veritatis</h5>
-                    <p className="subtitle">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ullam commodi provident, dolores reiciendis enim pariatur error optio, tempora ex, nihil nesciunt! In praesentium sunt commodi, unde ipsam ex veritatis laboriosam dolor asperiores suscipit blanditiis, dignissimos quos nesciunt nulla aperiam officia.</p>
+                    <h5 className="mb-3 card-title text-dark">Heading</h5>
+                    <p className="subtitle">msg</p>
                   </div>
                 </div>
               </div>
             </div>
-          </div>
-        </section>
-
-        <section className="section bg-dark py-5">
-          <div className="container text-center">
-            <h2 className="text-light mb-5 font-weight-normal">I Am Available For FreeLance</h2>
-            <button className="btn bg-primary w-lg">Hire me</button>
           </div>
         </section>
        
@@ -149,15 +224,7 @@ export default function profile() {
                       <input className="form-control" type="email" placeholder="Email *" required />
                     </div>
                     <div className="form-group">
-                    <textarea
-  className="form-control"
-  id="message"
-  placeholder="Message *"
-  rows={7}
-  required
-  defaultValue={""}
-/>
-
+                    <textarea className="form-control" id="message" placeholder="Message *" rows={7} required defaultValue={""}/>
                     </div>
                     <div className="form-group ">
                       <button type="submit" className="form-control btn btn-primary">Send Message</button>
@@ -173,7 +240,7 @@ export default function profile() {
                       <i className="ti-mobile icon-md" />
                     </div>
                     <div className="col-10 ">
-                      <h6 className="d-inline">Phone : <br /> <span className="text-muted">+ (123) 456-789</span></h6>
+                      <h6 className="d-inline">Phone : <br /> <span className="text-muted">+91-9752079591</span></h6>
                     </div>
                   </div>
                   <div className="row mb-2">
@@ -181,7 +248,7 @@ export default function profile() {
                       <i className="ti-map-alt icon-md" />
                     </div>
                     <div className="col-10">
-                      <h6 className="d-inline">Address :<br /> <span className="text-muted">12345 Fake ST NoWhere AB Country.</span></h6>
+                      <h6 className="d-inline">Address :<br /> <span className="text-muted">lopilo company, satna, (M.P.)</span></h6>
                     </div>
                   </div>
                   <div className="row mb-2">
@@ -189,7 +256,7 @@ export default function profile() {
                       <i className="ti-envelope icon-md" />
                     </div>
                     <div className="col-10">
-                      <h6 className="d-inline">Email :<br /> <span className="text-muted">info@website.com</span></h6>
+                      <h6 className="d-inline">Email :<br /> <span className="text-muted">lopilo@gmail.com</span></h6>
                     </div>
                   </div>
                   <ul className="social-icons pt-4">
