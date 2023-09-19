@@ -1,18 +1,18 @@
 {
   "files": {
-    "main.css": "/LOPILO/static/css/main.0f72e24b.css",
-    "main.js": "/LOPILO/static/js/main.83408f6e.js",
-    "static/js/787.4b744d23.chunk.js": "/LOPILO/static/js/787.4b744d23.chunk.js",
-    "static/media/Front_image.jpg": "/LOPILO/static/media/Front_image.a746853eece9f7035214.jpg",
-    "static/media/ShopkeeperImage.jpg": "/LOPILO/static/media/ShopkeeperImage.1a45ee205ce6e8ae72d8.jpg",
-    "static/media/Bottle.avif": "/LOPILO/static/media/Bottle.4d620924aa34797cd529.avif",
-    "index.html": "/LOPILO/index.html",
-    "main.0f72e24b.css.map": "/LOPILO/static/css/main.0f72e24b.css.map",
-    "main.83408f6e.js.map": "/LOPILO/static/js/main.83408f6e.js.map",
-    "787.4b744d23.chunk.js.map": "/LOPILO/static/js/787.4b744d23.chunk.js.map"
+    "main.css": "/static/css/main.d329a077.css",
+    "main.js": "/static/js/main.bc006245.js",
+    "static/js/787.4b744d23.chunk.js": "/static/js/787.4b744d23.chunk.js",
+    "static/media/Front_image.jpg": "/static/media/Front_image.a746853eece9f7035214.jpg",
+    "static/media/ShopkeeperImage.jpg": "/static/media/ShopkeeperImage.1a45ee205ce6e8ae72d8.jpg",
+    "static/media/Bottle.avif": "/static/media/Bottle.4d620924aa34797cd529.avif",
+    "index.html": "/index.html",
+    "main.d329a077.css.map": "/static/css/main.d329a077.css.map",
+    "main.bc006245.js.map": "/static/js/main.bc006245.js.map",
+    "787.4b744d23.chunk.js.map": "/static/js/787.4b744d23.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.0f72e24b.css",
-    "static/js/main.83408f6e.js"
+    "static/css/main.d329a077.css",
+    "static/js/main.bc006245.js"
   ]
 }
