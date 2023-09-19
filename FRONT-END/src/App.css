@@ -11487,6 +11487,39 @@ pre .code {
   text-align: center;
 }
 
+.photosimg2{
+  height: 500px;
+    width: 350px;
+    margin-top: 10px;
+    margin-left: 10px;
+    margin-bottom: 10px;
+}
+
+.photosimg1{
+  height: 300px;
+    width: 200px;
+    margin-top: -188px;
+    margin-left: 10px;
+    margin-bottom: 10px;
+}
+
+.photosimg3{
+  height: 300px;
+    width: 671px;
+    margin-top: -188px;
+    margin-left: 10px;
+    margin-bottom: 10px;
+}
+
+.photosimg4{
+    height: 190px;
+    margin-bottom: 10px;
+    width: 190px;
+    margin-top: -230px;
+    margin-left: -337px;
+}
+
+
 .navbar .brand .brand-img {
   position: absolute;
   left: 50%;
@@ -11585,7 +11618,21 @@ pre .code {
   color: #fff;
 }
 
-
+.header3{
+  position: relative;
+  height: 90vh;
+  min-height: 200px;
+  background-image: -webkit-linear-gradient(bottom, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url(./components/Image/photosimg4.jpg);
+  background-image: linear-gradient(to top, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url(./components/Image/photosimg4.jpg);
+  background-size: 1270px;
+  background-position: left;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  color: #fff;
+  margin-top: 10px;
+  margin-left: 10px;
+  margin-right: 10px;
+}
   .header2{
     position: relative;
     height: 80vh;

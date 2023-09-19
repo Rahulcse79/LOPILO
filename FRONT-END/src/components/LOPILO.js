@@ -30,7 +30,7 @@ export default function profile() {
                   <a href="#" className="nav-link">About</a>
                 </li>
                 <li className="nav-item">
-                  <a href="#" className="nav-link">Photos</a>
+                  <a href="Photos" className="nav-link">Photos</a>
                 </li>
               </ul>
               <ul className="navbar-nav brand">
