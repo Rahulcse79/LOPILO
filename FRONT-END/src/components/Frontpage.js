@@ -1,6 +1,7 @@
 import React from 'react'
 
 export default function profile() {
+  
   return (
     <div>
       <>
@@ -15,7 +16,6 @@ export default function profile() {
               </div>
           </div>
         </header>
-
         <nav className="navbar sticky-top navbar-expand-lg navbar-light bg-white" data-spy="affix" data-offset-top={510}>
           <div className="container">
             <button className="navbar-toggler ml-auto" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -24,13 +24,13 @@ export default function profile() {
             <div className="collapse mt-sm-20 navbar-collapse" id="navbarSupportedContent">
               <ul className="navbar-nav mr-auto">
                 <li className="nav-item">
-                  <a href="#home" className="nav-link">Home</a>
+                  <a href="home" className="nav-link">Home</a>
                 </li>
                 <li className="nav-item">
-                  <a href="#about" className="nav-link">About</a>
+                  <a href="about" className="nav-link">About</a>
                 </li>
                 <li className="nav-item">
-                  <a href="#resume" className="nav-link">Photos</a>
+                  <a href="photos" className="nav-link">Photos</a>
                 </li>
               </ul>
               <ul className="navbar-nav brand">
@@ -38,13 +38,13 @@ export default function profile() {
               </ul>
               <ul className="navbar-nav ml-auto">
                 <li className="nav-item">
-                  <a href="#portfolio" className="nav-link">Add store</a>
+                  <a href="Add-store" className="nav-link">Add store</a>
                 </li>
                 <li className="nav-item">
-                  <a href="#blog" className="nav-link">Log in</a>
+                  <a href="Log-in" className="nav-link">Log in</a>
                 </li>
                 <li className="nav-item last-item">
-                  <a href="#contact" className="nav-link">Sign up</a>
+                  <a href="Sign-up" className="nav-link">Sign up</a>
                 </li>
               </ul>
             </div>

@@ -75,6 +75,50 @@
   box-sizing: border-box;
 }
 
+.backbuttondiv{
+  margin-top: -60px;
+}
+
+.backbutton{
+  color: white;
+    cursor: pointer;
+    margin-left: -320px;
+    font-size: xxx-large;
+}
+
+.allbuttonForgot{
+  background-color: rgba(255,255,255,0.13);
+  transform: translate(-50%,-50%);
+  margin-top: 50px;
+  margin-left: 162px;
+}
+
+.allbuttonSignup{
+  background-color: rgba(255,255,255,0.13);
+  transform: translate(-50%,-50%);
+  margin-top: 50px;
+  margin-left: 162px;
+}
+
+.allbutton{
+  background-color: rgba(255,255,255,0.13);
+  transform: translate(-50%,-50%);
+  margin-top: 25px;
+  margin-left: 162px;
+}
+
+.Forgotup{
+  margin-top: 10px;
+  margin-bottom: 15px;
+}
+
+.Forgot{
+  color: #1138f8;
+    cursor: pointer;
+    margin-left: 150px;
+    margin-top: 11px;
+}
+
 
 html {
   font-family: sans-serif;
