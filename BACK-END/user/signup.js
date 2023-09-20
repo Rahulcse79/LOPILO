@@ -1,10 +1,12 @@
 const express = require("express");
+const cors = require("cors");
 const mongoose = require('mongoose');
 require("./configuration");
 const User = require("./signupSchema");
 
 // express app shorthands
 const app = express();
+app.use(cors());
 const PORT = 4000;
 
 // parses then request body to json

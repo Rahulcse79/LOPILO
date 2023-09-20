@@ -1,6 +1,30 @@
-import React from 'react'
+import {React,useState} from 'react'
+import { useNavigate } from 'react-router-dom';
 
 export default function Signup() {
+
+  const [Fullname,setName]=useState("");
+  const [Email,setEmail]=useState("");
+  const [OTP1,setOTP1]=useState("");
+  const [Phone,setPhone]=useState("");
+  const [OTP2,setOTP2]=useState("");
+  const [Createpassword,setPassword1]=useState("");
+  const [Reenterpassword,setPassword2]=useState("");
+  const navigate = useNavigate();
+
+  const CollectData = async()=>{
+    let result = await fetch('http://localhost:4000/usersignup',{
+        method: 'post',
+        body: JSON.stringify({Fullname,Email,Phone,Createpassword,Reenterpassword}),
+        headers: {
+            'Content-Type':'application/json'
+        }
+    });
+    result = await result.json();
+    console.log(result);
+    navigate("/");
+ }
+
   return (
     <div>
         {/*Stylesheet*/}
@@ -14,14 +38,14 @@ export default function Signup() {
           <a href="/" class="backbutton">&#8249;</a>
           </div> 
           <h3>Sign up</h3>
-          <input type="text" placeholder="Full name"/>
-          <input type="text" placeholder="Email"/>
-          <input type="number" placeholder="Enter Email OTP"/>
-          <input type="number" placeholder="Phone"/>
-          <input type="number" placeholder="Enter phone OTP"/>
-          <input type="password" placeholder="Create Password"/>
-          <input type="password" placeholder="Re-enter Password"/>
-          <button type='button' className='allbuttonSignup'>Sign up</button>
+          <input type="text" value={Fullname} onChange={(e)=>setName(e.target.value)}  placeholder="Full name"/>
+          <input type="text" value={Email} onChange={(e)=>setEmail(e.target.value)}  placeholder="Email"/>
+          <input type="number" value={OTP1} onChange={(e)=>setOTP1(e.target.value)} placeholder="Enter Email OTP"/>
+          <input type="number" value={Phone} onChange={(e)=>setPhone(e.target.value)} placeholder="Phone"/>
+          <input type="number" value={OTP2} onChange={(e)=>setOTP2(e.target.value)} placeholder="Enter phone OTP"/>
+          <input type="password" value={Createpassword} onChange={(e)=>setPassword1(e.target.value)} placeholder="Create Password"/>
+          <input type="password" value={Reenterpassword} onChange={(e)=>setPassword2(e.target.value)}  placeholder="Re-enter Password"/>
+          <button type='button' onClick={CollectData} className='allbuttonSignup'>Sign up</button>
         </form>
     </div>
   )
