@@ -3,15 +3,15 @@ import { useNavigate } from 'react-router-dom';
 
 export default function Shopkeeperlogin() {
 
-  const [Username,setUsername]=useState("");
+  const [Email,setEmail]=useState("");
   const [Password,setPassword]=useState("");
   const [SecurityCode,setSecurityCode]=useState("");
 
   const navigate = useNavigate();
 
   const CollectData = async () => {
-    if (Username === "") {
-      alert("Username is required.");
+    if (Email === "") {
+      alert("Email is required.");
       return;
     }
     else if (Password === "") {
@@ -19,29 +19,28 @@ export default function Shopkeeperlogin() {
       return;
     }
     else if (Password.length < 12) {
-      alert("Incorrect Password");
+      alert("Incorrect Password.");
       return;
     }
     else if (SecurityCode === "") {
       alert("SecurityCode is required.");
       return;
     }
-    // SecurityCode.length condition.
 
     try {
         let result = await fetch('http://localhost:4000/shopkeeperlogin', {
         method: 'post',
-        body: JSON.stringify({ Email: Username,Createpassword: Password,Securitycode: SecurityCode}),
+        body: JSON.stringify({ email: Email, password: Password, securitycode: SecurityCode}),
         headers: {'Content-Type': 'application/json'}
       });
         result = await result.json();
 
         if(result.success){
-         console.log("Login successfully");
+         console.log("Login successfully.");
          navigate("/Shopkeeper-after-login");
         }
         else{
-          alert("Incorrect username and password");
+          alert("Incorrect email or password.");
         }
       } 
         catch (error) {
@@ -63,12 +62,12 @@ export default function Shopkeeperlogin() {
           <a href="Shopkeeper" class="backbutton">&#8249;</a>
           </div> 
           <h3>Shopkeeper login</h3>
-          <label htmlFor="username">Username<span style={{color: "red"}}>*</span></label>
-          <input type="text" value={Username} onChange={(e)=>setUsername(e.target.value)} placeholder="Email or Phone"/>
+          <label htmlFor="username">Email<span style={{color: "red"}}>*</span></label>
+          <input type="text" value={Email} onChange={(e)=>setEmail(e.target.value)} placeholder="Enter your email."/>
           <label htmlFor="password">Password<span style={{color: "red"}}>*</span></label>
-          <input type="password" value={Password} onChange={(e)=>setPassword(e.target.value)} placeholder="Password"/>
+          <input type="password" value={Password} onChange={(e)=>setPassword(e.target.value)} placeholder="Enter your Password."/>
           <label htmlFor="password">Shopkeeper security code<span style={{color: "red"}}>*</span></label>
-          <input type="password" value={SecurityCode} onChange={(e)=>setSecurityCode(e.target.value)} placeholder="Shopkeeper security code"/>
+          <input type="password" value={SecurityCode} onChange={(e)=>setSecurityCode(e.target.value)} placeholder="Enter shopkeeper security code"/>
           <div className='Forgotup'>
           <a href="Shopkeeper-forgot-password" className="Forgot">Forgot password</a>
           </div>

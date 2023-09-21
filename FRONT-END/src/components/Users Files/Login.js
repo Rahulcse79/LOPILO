@@ -3,14 +3,14 @@ import { useNavigate } from 'react-router-dom';
 
 export default function Login() {
   
-  const [Username,setUsername]=useState("");
+  const [Email,setEmail]=useState("");
   const [Password,setPassword]=useState("");
   
   const navigate = useNavigate();
 
   const CollectData = async () => {
-    if (Username === "") {
-      alert("Username is required.");
+    if (Email === "") {
+      alert("Email is required.");
       return;
     }
     else if (Password === "") {
@@ -18,25 +18,24 @@ export default function Login() {
       return;
     }
     else if (Password.length < 12) {
-      alert("Incorrect password");
+      alert("Incorrect password.");
       return;
     }
    
     try {
         let result = await fetch('http://localhost:4000/userlogin',{
         method: 'post',
-        body: JSON.stringify({ Email: Username,Createpassword: Password }),
+        body: JSON.stringify({ email: Email, password: Password }),
         headers: {'Content-Type': 'application/json'}
       });
 
       result = await result.json();
 
       if(result.success){
-       console.log("Login successfully");
        navigate("/Afterlogin");
       }
       else{
-        alert("Incorrect username and password");
+        alert("Incorrect Email and password.");
       }
     } 
       catch (error) {
@@ -57,10 +56,10 @@ export default function Login() {
           <a href="/" class="backbutton">&#8249;</a>
           </div> 
           <h3>Login</h3>
-          <label htmlFor="username">Username<span style={{color: "red"}}>*</span></label>
-          <input type="text" value={Username} onChange={(e)=>setUsername(e.target.value)} placeholder="Email or Phone" id="username" />
+          <label htmlFor="username">Email<span style={{color: "red"}}>*</span></label>
+          <input type="text" value={Email} onChange={(e)=>setEmail(e.target.value)} placeholder="Enter your email."/>
           <label htmlFor="password">Password<span style={{color: "red"}}>*</span></label>
-          <input type="password" value={Password} onChange={(e)=>setPassword(e.target.value)} placeholder="Password" id="password" />
+          <input type="password" value={Password} onChange={(e)=>setPassword(e.target.value)} placeholder="Enter your password."/>
           <div className='Forgotup'>
           <a href="Forgot" className="Forgot">Forgot password</a>
           </div>

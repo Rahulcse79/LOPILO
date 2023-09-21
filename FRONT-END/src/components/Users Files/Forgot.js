@@ -3,46 +3,55 @@ import { useNavigate } from 'react-router-dom';
 
 export default function ForgotPage() {
 
-  const [Username,setUsername]=useState("");
+  const [Email,setEmail]=useState("");
   const [Otp,setOtp]=useState(null);
-  const [Password,setPassword]=useState("");
+  const [NewPassword,setNewPassword]=useState("");
   const [ReenterPassword,setReenterPassword]=useState("");
   
   const navigate = useNavigate();
 
   const CollectData = async () => {
-    if (Username === "") {
-      alert("Username is required.");
+    if (Email === "") {
+      alert("Email is required.");
       return;
     }
-    else if (Password === "") {
-      alert("New Password is required.");
+    else if (NewPassword === "") {
+      alert("Enter your new password.");
       return;
     }
-    else if (Password.length < 12) {
-      alert("Create your password atleast 12 charter.");
+    else if (NewPassword.length < 12) {
+      alert("Create your new password atleast 12 charter.");
       return;
     }
     else if (ReenterPassword === "") {
-      alert("Re-enter password is required.");
+      alert("Re-enter your new password.");
       return;
     }
-    else if (Password !== ReenterPassword) {
+    else if (NewPassword !== ReenterPassword) {
       alert("New password and re-enter password are different.");
       return;
     }
+    // login is missing.
 
     try {
-        await fetch('http://localhost:4000/forgotpassword',{
-        method: 'post',
-        body: JSON.stringify({Username,Password}),
+        let result = await fetch('http://localhost:4000/forgotpassword',{
+        method: 'put',
+        body: JSON.stringify({email: Email, password: NewPassword}),
         headers: {'Content-Type': 'application/json'}
       });
-        navigate("/Log-in");
-    } 
-      catch (error) {
-      console.error(error);
-    }};
+        result = await result.json();
+
+        if(result.success){
+         alert("Your password is changed.");
+         navigate("/Log-in");
+        }
+        else{
+          alert("Incorrect email.");
+        }
+      } 
+        catch (error) {
+        console.error(error);
+      }};
     
   return (
     <div>
@@ -58,14 +67,14 @@ export default function ForgotPage() {
           <a href="/Log-in" class="backbutton">&#8249;</a>
           </div> 
           <h3>Forgot password</h3>
-          <label htmlFor="username">Username<span style={{color: "red"}}>*</span></label>
-          <input type="text" value={Username} onChange={(e)=>setUsername(e.target.value)} placeholder="Email or Phone"/>
+          <label htmlFor="username">Email<span style={{color: "red"}}>*</span></label>
+          <input type="text" value={Email} onChange={(e)=>setEmail(e.target.value)} placeholder="Enter your email."/>
           <label htmlFor="password">Enter OTP</label>
-          <input type="number" value={Otp} onChange={(e)=>setOtp(e.target.value)} placeholder="Enter OTP"/>
+          <input type="number" value={Otp} onChange={(e)=>setOtp(e.target.value)} placeholder="Enter email OTP."/>
           <label htmlFor="password">New password<span style={{color: "red"}}>*</span></label>
-          <input type="password" value={Password} onChange={(e)=>setPassword(e.target.value)} placeholder="New password"/>
+          <input type="password" value={NewPassword} onChange={(e)=>setNewPassword(e.target.value)} placeholder="Enter your new password."/>
           <label htmlFor="password">Re-enter new password<span style={{color: "red"}}>*</span></label>
-          <input type="password" value={ReenterPassword} onChange={(e)=>setReenterPassword(e.target.value)} placeholder="Re-enter new password"/>
+          <input type="password" value={ReenterPassword} onChange={(e)=>setReenterPassword(e.target.value)} placeholder="Re-enter your new password."/>
           <button type='button' onClick={CollectData} className='allbuttonForgot'>Continue</button>
         </form>
     </div>

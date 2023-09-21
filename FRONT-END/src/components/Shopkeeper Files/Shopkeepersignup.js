@@ -44,7 +44,7 @@ export default function Signup() {
     try {
         let result = await fetch('http://localhost:4000/shopkeepersignup', {
         method: 'post',
-        body: JSON.stringify({ Fullname: Fullname, Email: Email, Phone: Phone,Createpassword: Createpassword}),
+        body: JSON.stringify({ name: Fullname, email: Email, phone: Phone, password: Createpassword}),
         headers: {'Content-Type': 'application/json'}
       });
         result = await result.json();
@@ -72,19 +72,19 @@ export default function Signup() {
         <div className='backbuttondiv'><a href="Shopkeeper" class="backbutton">&#8249;</a></div> 
         <h3>Shopkeeper sign up</h3>
           <label htmlFor="username">Full name<span style={{color: "red"}}>*</span></label>
-          <input type="text" value={Fullname} onChange={(e)=>setFullname(e.target.value)}  placeholder="Enter your name"/>
+          <input type="text" value={Fullname} onChange={(e)=>setFullname(e.target.value)}  placeholder="Enter your full name."/>
           <label htmlFor="username">Email<span style={{color: "red"}}>*</span></label>
-          <input type="text" value={Email} onChange={(e)=>setEmail(e.target.value)}  placeholder="Enter your email"/>
+          <input type="text" value={Email} onChange={(e)=>setEmail(e.target.value)}  placeholder="Enter your email."/>
           <label htmlFor="username">Enter Email OTP</label>
-          <input type="number" value={OTP1} onChange={(e)=>setOTP1(e.target.value)} placeholder="OTP"/>
+          <input type="number" value={OTP1} onChange={(e)=>setOTP1(e.target.value)} placeholder="Enter email OTP."/>
           <label htmlFor="username">Phone<span style={{color: "red"}}>*</span></label>
-          <input type="number" value={Phone} onChange={(e)=>setPhone(e.target.value)} placeholder="Enter your phone number"/>
+          <input type="number" value={Phone} onChange={(e)=>setPhone(e.target.value)} placeholder="Enter your phone number."/>
           <label htmlFor="username">Enter phone OTP</label>
-          <input type="number" value={OTP2} onChange={(e)=>setOTP2(e.target.value)} placeholder="OTP"/>
+          <input type="number" value={OTP2} onChange={(e)=>setOTP2(e.target.value)} placeholder="Enter phone OTP."/>
           <label htmlFor="password">Create Password<span style={{color: "red"}}>*</span></label>
-          <input type="password" value={Createpassword} onChange={(e)=>setCreatepassword(e.target.value)} placeholder="Create your password atleast 12 charter"/>
+          <input type="password" value={Createpassword} onChange={(e)=>setCreatepassword(e.target.value)} placeholder="Create your password atleast 12 charter."/>
           <label htmlFor="password">Re-enter Password<span style={{color: "red"}}>*</span></label>
-          <input type="password" value={Reenterpassword} onChange={(e)=>setReenterpassword(e.target.value)}  placeholder="Re-enter your password"/>
+          <input type="password" value={Reenterpassword} onChange={(e)=>setReenterpassword(e.target.value)}  placeholder="Re-enter your password."/>
           <button type='button' onClick={CollectData} className='allbuttonSignup'>Sign up</button>
         </form>
     </div>

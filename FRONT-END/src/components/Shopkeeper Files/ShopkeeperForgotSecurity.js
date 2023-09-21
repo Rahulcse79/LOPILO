@@ -3,45 +3,58 @@ import { useNavigate } from 'react-router-dom';
 
 export default function ShopkeeperForgotSecurity() {
 
-  const [Username,setUsername]=useState("");
-  const [Otp,setOtp]=useState(null);
-  const [ShopId,setShopId]=useState("");
+  const [Email,setEmail]=useState("");
+  const [SecurityCode,setSecurityCode]=useState("");
+  const [ShopId,setShopId]=useState(null);
   const [Password,setPassword]=useState("");
   
   const navigate = useNavigate();
 
   const CollectData = async () => {
-    if (Username === "") {
-      alert("Username is required.");
+    if (ShopId === "") {
+      alert("Shop-id is required.");
       return;
     }
-    else if (Password === "") {
-      alert("New Password is required.");
+    else if (Email === "") {
+      alert("Email is required.");
       return;
     }
-    else if (ShopId === "") {
+    else if (ShopId === null) {
       alert("Shop id is required.");
       return;
     }
+    else if (SecurityCode === "") {
+      alert("Please enter your new security code.");
+      return;
+    }
+    else if (Password === "") {
+      alert("Password is required.");
+      return;
+    }
     else if (Password.length < 12) {
-      alert("Create your password atleast 12 charter.");
+      alert("Incorrect password.");
       return;
     }
 
-    // Shop id length is missing.
-    // otp is missing.
-
     try {
-        await fetch('http://localhost:4000/shopkeeperforgotsecuritypassword',{
-        method: 'post',
-        body: JSON.stringify({Username,Password,ShopId}),
+        let result = await fetch('http://localhost:4000/shopkeeperforgotsecuritypassword',{
+        method: 'put',
+        body: JSON.stringify({email: Email, password: Password, shopid: ShopId, securitycode: SecurityCode}),
         headers: {'Content-Type': 'application/json'}
       });
-        navigate("/Shopkeeperlogin");
-    } 
-      catch (error) {
-      console.error(error);
-    }};
+       result = await result.json();
+
+        if(result.success){
+          alert("Your security code is changed.");
+          navigate("/Shopkeeperlogin");
+         }
+         else{
+           alert("Incorrect shop-id, email, or password.");
+         }
+       } 
+         catch (error) {
+         console.error(error);
+       }};
 
   return (
     <div>
@@ -58,13 +71,13 @@ export default function ShopkeeperForgotSecurity() {
           </div> 
           <h3>Forgot security code</h3>
           <label htmlFor="password">Enter shop id<span style={{color: "red"}}>*</span></label>
-          <input type="text" value={ShopId} onChange={(e)=>setShopId(e.target.value)} placeholder="Enter shop id"/>
-          <label htmlFor="username">Username<span style={{color: "red"}}>*</span></label>
-          <input type="text" value={Username} onChange={(e)=>setUsername(e.target.value)} placeholder="Email or Phone" />
-          <label htmlFor="password">Enter OTP</label>
-          <input type="number" value={Otp} onChange={(e)=>setOtp(e.target.value)} placeholder="Enter OTP"/>
+          <input type="number" value={ShopId} onChange={(e)=>setShopId(e.target.value)} placeholder="Enter your shop id."/>
+          <label htmlFor="username">Email<span style={{color: "red"}}>*</span></label>
+          <input type="text" value={Email} onChange={(e)=>setEmail(e.target.value)} placeholder="Enter your email." />
+          <label htmlFor="password">New security code<span style={{color: "red"}}>*</span></label>
+          <input type="password" value={SecurityCode} onChange={(e)=>setSecurityCode(e.target.value)} placeholder="Enter new security code."/>
           <label htmlFor="password">Password<span style={{color: "red"}}>*</span></label>
-          <input type="password" value={Password} onChange={(e)=>setPassword(e.target.value)} placeholder="Password"/>
+          <input type="password" value={Password} onChange={(e)=>setPassword(e.target.value)} placeholder="Enter your password."/>
           <button type='button' onClick={CollectData} className='allbuttonForgot'>Continue</button>
         </form>
     </div>
