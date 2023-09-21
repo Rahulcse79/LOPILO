@@ -1,6 +1,53 @@
-import React from 'react'
+import {React,useState} from 'react'
+import { useNavigate } from 'react-router-dom';
 
 export default function Shopkeeperlogin() {
+
+  const [Username,setUsername]=useState("");
+  const [Password,setPassword]=useState("");
+  const [SecurityCode,setSecurityCode]=useState("");
+
+  const navigate = useNavigate();
+
+  const CollectData = async () => {
+    if (Username === "") {
+      alert("Username is required.");
+      return;
+    }
+    else if (Password === "") {
+      alert("Password is required.");
+      return;
+    }
+    else if (Password.length < 12) {
+      alert("Incorrect Password");
+      return;
+    }
+    else if (SecurityCode === "") {
+      alert("SecurityCode is required.");
+      return;
+    }
+    // SecurityCode.length condition.
+
+    try {
+        let result = await fetch('http://localhost:4000/shopkeeperlogin', {
+        method: 'post',
+        body: JSON.stringify({ Email: Username,Createpassword: Password,Securitycode: SecurityCode}),
+        headers: {'Content-Type': 'application/json'}
+      });
+        result = await result.json();
+
+        if(result.success){
+         console.log("Login successfully");
+         navigate("/Shopkeeper-after-login");
+        }
+        else{
+          alert("Incorrect username and password");
+        }
+      } 
+        catch (error) {
+        console.error(error);
+      }};
+  
 
   return (
     <div>
@@ -16,19 +63,19 @@ export default function Shopkeeperlogin() {
           <a href="Shopkeeper" class="backbutton">&#8249;</a>
           </div> 
           <h3>Shopkeeper login</h3>
-          <label htmlFor="username">Username</label>
-          <input type="text" placeholder="Email or Phone"/>
-          <label htmlFor="password">Password</label>
-          <input type="password" placeholder="Password"/>
-          <label htmlFor="password">Shopkeeper security code</label>
-          <input type="password" placeholder="Shopkeeper security code"/>
+          <label htmlFor="username">Username<span style={{color: "red"}}>*</span></label>
+          <input type="text" value={Username} onChange={(e)=>setUsername(e.target.value)} placeholder="Email or Phone"/>
+          <label htmlFor="password">Password<span style={{color: "red"}}>*</span></label>
+          <input type="password" value={Password} onChange={(e)=>setPassword(e.target.value)} placeholder="Password"/>
+          <label htmlFor="password">Shopkeeper security code<span style={{color: "red"}}>*</span></label>
+          <input type="password" value={SecurityCode} onChange={(e)=>setSecurityCode(e.target.value)} placeholder="Shopkeeper security code"/>
           <div className='Forgotup'>
           <a href="Shopkeeper-forgot-password" className="Forgot">Forgot password</a>
           </div>
           <div className='Forgotup'>
           <a href="Shopkeeper-forgot-security-code" className="Forgot">Forgot security code</a>
           </div>
-          <button type="button" className='allbutton'>log in</button>
+          <button type="button" onClick={CollectData} className='allbutton'>log in</button>
         </form>
     </div>
   )

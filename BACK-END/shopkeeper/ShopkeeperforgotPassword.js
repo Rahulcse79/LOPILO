@@ -1,5 +1,5 @@
 const express = require("express");
-require("./configuration");
+require("./Shopkeeperconfiguration");
 const connection = require("./forgotPasswordSchema");
 
 // express app shorthands

@@ -10,26 +10,15 @@ const SchemaSET = new mongoose.Schema({
     type: String,
     required: true
   },
-  EmailOTP: {
-    type: Number,
-    required: false
-  },
   Phone: {
     type: Number,
     required: true
-  },
-  PhoneOTP: {
-    type: Number,
-    required: false
   },
   Createpassword: {
     type: String,
     required: true
   },
-  Reenterpassword: {
-    type: String,
-    required: true
-  }});
+  });
 
 const Database = mongoose.model("user",SchemaSET);
 

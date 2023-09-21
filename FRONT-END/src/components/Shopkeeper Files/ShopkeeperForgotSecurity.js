@@ -1,6 +1,48 @@
-import React from 'react'
+import {React,useState} from 'react'
+import { useNavigate } from 'react-router-dom';
 
 export default function ShopkeeperForgotSecurity() {
+
+  const [Username,setUsername]=useState("");
+  const [Otp,setOtp]=useState(null);
+  const [ShopId,setShopId]=useState("");
+  const [Password,setPassword]=useState("");
+  
+  const navigate = useNavigate();
+
+  const CollectData = async () => {
+    if (Username === "") {
+      alert("Username is required.");
+      return;
+    }
+    else if (Password === "") {
+      alert("New Password is required.");
+      return;
+    }
+    else if (ShopId === "") {
+      alert("Shop id is required.");
+      return;
+    }
+    else if (Password.length < 12) {
+      alert("Create your password atleast 12 charter.");
+      return;
+    }
+
+    // Shop id length is missing.
+    // otp is missing.
+
+    try {
+        await fetch('http://localhost:4000/shopkeeperforgotsecuritypassword',{
+        method: 'post',
+        body: JSON.stringify({Username,Password,ShopId}),
+        headers: {'Content-Type': 'application/json'}
+      });
+        navigate("/Shopkeeperlogin");
+    } 
+      catch (error) {
+      console.error(error);
+    }};
+
   return (
     <div>
        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css" />
@@ -15,15 +57,15 @@ export default function ShopkeeperForgotSecurity() {
           <a href="/Shopkeeperlogin" class="backbutton">&#8249;</a>
           </div> 
           <h3>Forgot security code</h3>
-          <label htmlFor="password">Enter shop id</label>
-          <input type="text" placeholder="Enter shop id"/>
-          <label htmlFor="username">Username</label>
-          <input type="text" placeholder="Email or Phone" />
+          <label htmlFor="password">Enter shop id<span style={{color: "red"}}>*</span></label>
+          <input type="text" value={ShopId} onChange={(e)=>setShopId(e.target.value)} placeholder="Enter shop id"/>
+          <label htmlFor="username">Username<span style={{color: "red"}}>*</span></label>
+          <input type="text" value={Username} onChange={(e)=>setUsername(e.target.value)} placeholder="Email or Phone" />
           <label htmlFor="password">Enter OTP</label>
-          <input type="number" placeholder="Enter OTP"/>
-          <label htmlFor="password">Password</label>
-          <input type="password" placeholder="Password"/>
-          <button type='button' className='allbuttonForgot'>Continue</button>
+          <input type="number" value={Otp} onChange={(e)=>setOtp(e.target.value)} placeholder="Enter OTP"/>
+          <label htmlFor="password">Password<span style={{color: "red"}}>*</span></label>
+          <input type="password" value={Password} onChange={(e)=>setPassword(e.target.value)} placeholder="Password"/>
+          <button type='button' onClick={CollectData} className='allbuttonForgot'>Continue</button>
         </form>
     </div>
   )

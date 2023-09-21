@@ -10,27 +10,20 @@ const SchemaSET = new mongoose.Schema({
     type: String,
     required: true
   },
-  EmailOTP: {
-    type: Number,
-    required: false
-  },
   Phone: {
     type: Number,
     required: true
-  },
-  PhoneOTP: {
-    type: Number,
-    required: false
   },
   Createpassword: {
     type: String,
     required: true
   },
-  Reenterpassword: {
+  Securitycode:{
     type: String,
-    required: true
-  }});
+    required: false
+  }
+ });
 
-const Database = mongoose.model("shopkeeper",SchemaSET);
+const Database = mongoose.model("shopkeepers",SchemaSET);
 
 module.exports = Database;

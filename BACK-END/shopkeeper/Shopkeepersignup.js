@@ -1,8 +1,8 @@
 const express = require("express");
-const cors = require("cors");
 const mongoose = require('mongoose');
-require("./configuration");
-const User = require("./signupSchema");
+const cors = require("cors");
+require("./Shopkeeperconfiguration");
+const User = require("./ShopkeepersignupSchema");
 
 // express app shorthands
 const app = express();
@@ -13,24 +13,24 @@ app.use(express.json());
 app.use(cors());
 
 // POST API
-app.post("/usersignup", async (req, resp) => {
+app.post("/shopkeepersignup", async (req, resp) => {
     try {
         const { Fullname, Createpassword, Email, Phone } = req.body;
         const existingUser = await User.findOne({ Email, Phone });
 
         if (existingUser) {
-            resp.status(400).send("User with this email and phone already exists.");
+            resp.status(400).send({success: false, message: "User with this email and phone already exists."});
         } else {
             const data = new User({Fullname, Email, Phone, Createpassword});
             const result = await data.save()
-            const { Createpassword:_, ...loggedResult } = result.toObject();
+            const { Createpassword:_,...loggedResult } = result.toObject();
 
-            resp.send(loggedResult);
             console.log(loggedResult);
+            resp.status(200).send({success: true, message: "Sign-up successfully"});
         }
     } catch (error) {
         resp.status(500).send(error.message);
-        console.error(error.message);
+        console.log(error.message);
     }
 });
 

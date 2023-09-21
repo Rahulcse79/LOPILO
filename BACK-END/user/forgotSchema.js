@@ -6,10 +6,6 @@ const SchemaSET = new mongoose.Schema({
     type: String,
     required: true
   },
-  Reenternewpassword:{
-    type: String,
-    required: true
-  },
   Newpassword:{
     type: String,
     required: true

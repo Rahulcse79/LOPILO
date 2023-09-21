@@ -19,7 +19,10 @@ export default function Photos() {
           <div className="container text-center">
             <h2 className="text-light mb-5 font-weight-normal" style={{marginTop: "90px"}}>Top 10 wines</h2>
           </div>
-        </section>
+      </section>
+      <div>
+      <img src={require("./Image/photosimg6.jpg")} className="card-img-top photosimg6" alt="..." />
+      </div>
      
     </div>
   )

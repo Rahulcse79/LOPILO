@@ -1,12 +1,24 @@
-import React from 'react'
+import React, { useState } from 'react';
 
-export default function profile() {
+const Lopilo = () => {
+  const [Name, setName] = useState("");
+  const [Email, setEmail] = useState("");
+  const [Message, setMessage] = useState("");
   
+  const CollectData = async () => {
+    try {
+        await fetch('http://localhost:4000/lopilo', {
+        method: 'post',
+        body: JSON.stringify({ Name, Email, Message}),
+        headers: {'Content-Type': 'application/json'}
+      });
+    } 
+      catch (error) {
+      console.error(error);
+  }};
+
   return (
-    <div>
-      <>
       <div>
-        
         {/*Main image section*/}
         <header className="header">
         <div className="container">
@@ -67,8 +79,8 @@ export default function profile() {
                     <i className="ti-vector text-danger" aria-hidden="true" />
                   </div>
                   <div className="card-body px-4 py-3">
-                    <h5 className="mb-3 card-title text-dark">Heading</h5>
-                    <p className="subtitle">msg</p>
+                    <h5 className="mb-3 card-title text-dark">Johnnie Walker</h5>
+                    <p className="subtitle">Johnnie Walker is a brand of Scotch whisky produced by Diageo in Scotland. It originated in the Scottish burgh of Kilmarnock in East Ayrshire. The brand was first established by grocer John Walker.</p>
                   </div>
                 </div>
               </div>
@@ -78,8 +90,8 @@ export default function profile() {
                     <i className="ti-write text-danger" aria-hidden="true" />
                   </div>
                   <div className="card-body px-4 py-3">
-                    <h5 className="mb-3 card-title text-dark">Heading</h5>
-                    <p className="subtitle">msg</p>
+                    <h5 className="mb-3 card-title text-dark">Lagavulin</h5>
+                    <p className="subtitle">Lagavulin distillery is a malt whisky distillery in the village of Lagavulin on the south of the island of Islay, Scotland. It distills spirit that will become Islay single malt Scotch whisky. Lagavulin is owned by Diageo, a multinational beverage alcohol company headquartered in London.</p>
                   </div>
                 </div>
               </div>
@@ -89,8 +101,8 @@ export default function profile() {
                     <i className="ti-package text-danger" aria-hidden="true" />
                   </div>
                   <div className="card-body px-4 py-3">
-                    <h5 className="mb-3 card-title text-dark">Heading</h5>
-                    <p className="subtitle">msg</p>
+                    <h5 className="mb-3 card-title text-dark">Dewar's</h5>
+                    <p className="subtitle">Dewar's is a brand of blended Scotch whisky produced by Bacardi in Scotland.</p>
                   </div>
                 </div>
               </div>
@@ -100,8 +112,8 @@ export default function profile() {
                     <i className="ti-map-alt text-danger" aria-hidden="true" />
                   </div>
                   <div className="card-body px-4 py-3">
-                    <h5 className="mb-3 card-title text-dark">Heading</h5>
-                    <p className="subtitle">msg</p>
+                    <h5 className="mb-3 card-title text-dark">Glenfiddich</h5>
+                    <p className="subtitle">Glenfiddich distillery is a Speyside single malt Scotch whisky distillery owned by William Grant & Sons in the Scottish burgh of Dufftown in Moray. The name Glenfiddich derives from the Scottish Gaelic Gleann Fhiodhaich meaning "valley of the deer", which is reflected in Glenfiddich's stag logo.</p>
                   </div>
                 </div>
               </div>
@@ -111,8 +123,8 @@ export default function profile() {
                     <i className="ti-bar-chart text-danger" aria-hidden="true" />
                   </div>
                   <div className="card-body px-4 py-3">
-                    <h5 className="mb-3 card-title text-dark">Heading</h5>
-                    <p className="subtitle">msg</p>
+                    <h5 className="mb-3 card-title text-dark">Woodford Reserve</h5>
+                    <p className="subtitle">Woodford Reserve is a brand of premium small batch Kentucky straight bourbon whiskey produced in Woodford County, Kentucky, by the Brown-Forman Corporation.</p>
                   </div>
                 </div>
               </div>
@@ -122,8 +134,41 @@ export default function profile() {
                     <i className="ti-support text-danger" aria-hidden="true" />
                   </div>
                   <div className="card-body px-4 py-3">
-                    <h5 className="mb-3 card-title text-dark">Heading</h5>
-                    <p className="subtitle">msg</p>
+                    <h5 className="mb-3 card-title text-dark">Jim Beam</h5>
+                    <p className="subtitle">Jim Beam is an American brand of bourbon whiskey produced in Clermont, Kentucky, by Beam Suntory. It is one of the best-selling brands of bourbon in the world. Since 1795, seven generations of the Beam family have been involved in whiskey production for the company that produces the brand.</p>
+                  </div>
+                </div>
+              </div>
+              <div className="col-md-4 col-sm-6">
+                <div className="card mb-5">
+                  <div className="card-header has-icon">
+                    <i className="ti-support text-danger" aria-hidden="true" />
+                  </div>
+                  <div className="card-body px-4 py-3">
+                    <h5 className="mb-3 card-title text-dark">Royal Stag</h5>
+                    <p className="subtitle">Royal Stag, also known as Seagram's Royal Stag, is an Indian whisky launched in 1995. It is available in many countries across the world in various pack sizes. It is Pernod Ricard's best selling brand by volume. It is a blend of grain spirits and imported Scotch malts.</p>
+                  </div>
+                </div>
+              </div>
+              <div className="col-md-4 col-sm-6">
+                <div className="card mb-5">
+                  <div className="card-header has-icon">
+                    <i className="ti-support text-danger" aria-hidden="true" />
+                  </div>
+                  <div className="card-body px-4 py-3">
+                    <h5 className="mb-3 card-title text-dark">100 Pipers</h5>
+                    <p className="subtitle">100 Pipers is a brand of blended Scotch whisky produced by Pernod Ricard India Private Ltd.. 100 Pipers is bottled and marketed in India. 100 Pipers is a blend of between 25 and 30 source whiskies that came from Scotland.</p>
+                  </div>
+                </div>
+              </div>
+              <div className="col-md-4 col-sm-6">
+                <div className="card mb-5">
+                  <div className="card-header has-icon">
+                    <i className="ti-support text-danger" aria-hidden="true" />
+                  </div>
+                  <div className="card-body px-4 py-3">
+                    <h5 className="mb-3 card-title text-dark">Signature</h5>
+                    <p className="subtitle">Signature, also known as McDowell's Signature, is a brand of Indian whisky, manufactured by United Spirits Ltd, a Diageo Group company. It was launched in 1994. Signature is a blend of imported Scotch whisky and locally produced products.</p>
                   </div>
                 </div>
               </div>
@@ -218,16 +263,16 @@ export default function profile() {
                   <h4 className="contact-title">Send a message</h4>
                   <form action>
                     <div className="form-group">
-                      <input className="form-control" type="text" placeholder="Name *" required />
+                      <input className="form-control" type="text" value={Name} onChange={(e)=>setName(e.target.value)} placeholder="Name *" required />
                     </div>
                     <div className="form-group">
-                      <input className="form-control" type="email" placeholder="Email *" required />
+                      <input className="form-control" type="email" value={Email} onChange={(e)=>setEmail(e.target.value)} placeholder="Email *" required />
                     </div>
                     <div className="form-group">
-                    <textarea className="form-control" id="message" placeholder="Message *" rows={7} required defaultValue={""}/>
+                    <textarea className="form-control" id="message" value={Message} onChange={(e)=>setMessage(e.target.value)} placeholder="Message *" rows={7} required defaultValue={""}/>
                     </div>
                     <div className="form-group ">
-                      <button type="submit" className="form-control btn btn-primary">Send Message</button>
+                      <button type="submit" onClick={CollectData} className="form-control btn btn-primary">Send Message</button>
                     </div>
                   </form>
                 </div>
@@ -256,7 +301,7 @@ export default function profile() {
                       <i className="ti-envelope icon-md" />
                     </div>
                     <div className="col-10">
-                      <h6 className="d-inline">Email :<br /> <span className="text-muted">lopilo@gmail.com</span></h6>
+                      <h6 className="d-inline" >Email :<br /> <span className="text-muted">lopilo@gmail.com</span></h6>
                     </div>
                   </div>
                   <ul className="social-icons pt-4">
@@ -272,7 +317,8 @@ export default function profile() {
           </div>
         </div>
       </div>
-     </>
-    </div>
-  )
+  );
 }
+
+export default Lopilo;
+

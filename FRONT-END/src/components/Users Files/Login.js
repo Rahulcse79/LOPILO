@@ -1,6 +1,47 @@
-import React from 'react'
+import {React,useState} from 'react'
+import { useNavigate } from 'react-router-dom';
 
 export default function Login() {
+  
+  const [Username,setUsername]=useState("");
+  const [Password,setPassword]=useState("");
+  
+  const navigate = useNavigate();
+
+  const CollectData = async () => {
+    if (Username === "") {
+      alert("Username is required.");
+      return;
+    }
+    else if (Password === "") {
+      alert("Password is required.");
+      return;
+    }
+    else if (Password.length < 12) {
+      alert("Incorrect password");
+      return;
+    }
+   
+    try {
+        let result = await fetch('http://localhost:4000/userlogin',{
+        method: 'post',
+        body: JSON.stringify({ Email: Username,Createpassword: Password }),
+        headers: {'Content-Type': 'application/json'}
+      });
+
+      result = await result.json();
+
+      if(result.success){
+       console.log("Login successfully");
+       navigate("/Afterlogin");
+      }
+      else{
+        alert("Incorrect username and password");
+      }
+    } 
+      catch (error) {
+      console.error(error);
+    }};
 
   return (
     <div>
@@ -16,14 +57,14 @@ export default function Login() {
           <a href="/" class="backbutton">&#8249;</a>
           </div> 
           <h3>Login</h3>
-          <label htmlFor="username">Username</label>
-          <input type="text" placeholder="Email or Phone" id="username" />
-          <label htmlFor="password">Password</label>
-          <input type="password" placeholder="Password" id="password" />
+          <label htmlFor="username">Username<span style={{color: "red"}}>*</span></label>
+          <input type="text" value={Username} onChange={(e)=>setUsername(e.target.value)} placeholder="Email or Phone" id="username" />
+          <label htmlFor="password">Password<span style={{color: "red"}}>*</span></label>
+          <input type="password" value={Password} onChange={(e)=>setPassword(e.target.value)} placeholder="Password" id="password" />
           <div className='Forgotup'>
           <a href="Forgot" className="Forgot">Forgot password</a>
           </div>
-          <button type="button" className='allbutton'>Log in</button>
+          <button type="button" onClick={CollectData} className='allbutton'>Log in</button>
           <div className="social">
             <div className="go" style={{cursor: "pointer"}}><i className="fab fa-google" style={{cursor: "pointer"}}/>  Google</div>
             <div className="fb" style={{cursor: "pointer"}}><i className="far fa-envelope" style={{cursor: "pointer"}}/>  Email</div>
