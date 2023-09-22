@@ -56,6 +56,7 @@ export default function Shopkeeperlogin() {
         }
       } 
         catch (error) {
+          alert("Server error, please try again.");
         console.error(error);
       }};
   

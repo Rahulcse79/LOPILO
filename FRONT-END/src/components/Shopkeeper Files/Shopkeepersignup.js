@@ -52,8 +52,11 @@ export default function Signup() {
         headers: {'Content-Type': 'application/json'}
       });
         result = await result.json();
+        const ShopId = result.shopid;
         if(result.success){
          console.log("Signup successfully.");
+         const ShopkeeperInfo = { email: Email, password: Createpassword, shopid: ShopId};
+         localStorage.setItem('ShopkeeperInfo', JSON.stringify(ShopkeeperInfo));
          navigate("/Shopkeeper-security-page");
         }
         else{
@@ -61,6 +64,7 @@ export default function Signup() {
         }
       } 
         catch (error) {
+          alert("Server error, please try again.");
         console.log(error);
       }};
 

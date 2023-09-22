@@ -12,7 +12,7 @@ const PORT = 4000;
 app.use(express.json());
 app.use(cors());
 
-// shopkeeper signup api.
+// message post api.
 app.post("/message", async (req, resp) => {
   try {
       const { name, email, phone, message } = req.body;

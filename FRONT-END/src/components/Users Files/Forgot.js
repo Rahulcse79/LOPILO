@@ -54,6 +54,7 @@ export default function ForgotPage() {
         }
       } 
         catch (error) {
+          alert("Server error, please try again.");
         console.error(error);
       }};
     

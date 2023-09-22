@@ -47,6 +47,7 @@ export default function Login() {
       }
     } 
       catch (error) {
+        alert("Server error, please try again.");
       console.error(error);
     }};
 

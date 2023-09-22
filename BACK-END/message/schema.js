@@ -20,6 +20,6 @@ const SchemaSET = new mongoose.Schema({
   }
  });
 
-const Database = mongoose.model("message",SchemaSET);
+const Database = mongoose.model("messages",SchemaSET);
 
 module.exports = Database;

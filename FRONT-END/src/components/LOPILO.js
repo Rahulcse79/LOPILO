@@ -59,6 +59,7 @@ const Lopilo = () => {
        alert("Please enter the correct details.");
      }}
      catch (error) {
+      alert("Server error, please try again.");
      console.error(error);
    };
   }

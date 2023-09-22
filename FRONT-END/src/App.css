@@ -11519,12 +11519,83 @@ pre .code {
     margin-left: -337px;
 }
 
+/* NameAgePhoneForm.css */
+
+.form-container {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background-color: #fff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.form-header {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.form-header h2 {
+  margin: 0;
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+.label {
+  font-weight: bold;
+  display: block;
+  margin-bottom: 5px;
+}
+
+.input-field {
+  width: calc(100% - 10px);
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 16px;
+}
+
+.submit-button {
+  width: 100%;
+  padding: 10px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.submit-button:hover {
+  background-color: #0056b3;
+}
+
+
 .photosimg6{
   height: 190px;
     margin-bottom: 10px;
     width: 304px;
     margin-top: -817px;
     margin-left: 185px;
+}
+
+.sectionshopkeeper{
+  padding: 15px;
+  border: 2px solid #000000;
+}
+
+.formsecuritypage{ 
+  color: black;
+  margin-left: 10px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  background-color: #bdbdbd;
+  margin-right: 10px;
+  height: 1089px;
+  width: 1080px;
 }
 
 .navbar .brand .brand-img {
@@ -11638,6 +11709,19 @@ pre .code {
   color: #fff;
   margin-top: 10px;
   margin-left: 10px;
+  margin-right: 10px;
+}
+
+.header4{
+  position: relative;
+  height: 80vh;
+  min-height: 1200px;
+  background-image: -webkit-linear-gradient(bottom, rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url(./components/Image/photoimg11.png);
+  background-image: linear-gradient(to top, rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url(./components/Image/photoimg11.png);
+  background-size: 1270px;
+  background-position: left;
+  background-repeat: no-repeat;
+  color: #fff;
   margin-right: 10px;
 }
   .header2{

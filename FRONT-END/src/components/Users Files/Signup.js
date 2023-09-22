@@ -60,6 +60,7 @@ export default function Signup() {
         }
       } 
         catch (error) {
+        alert("Server error, please try again.");
         console.log(error);
       }};
 
