@@ -1,4 +1,4 @@
-import React,{useState } from 'react'
+import React,{useState,useEffect } from 'react'
 import { useNavigate } from 'react-router-dom';
 
 export default function ShopkeeperSecurityPage() {
@@ -31,6 +31,20 @@ export default function ShopkeeperSecurityPage() {
     navigate("/");
   }
 
+  useEffect(() => {
+    const userObject = JSON.parse(localStorage.getItem('ShopkeeperInfo'));
+    if (userObject) {
+      setEmail(userObject.email || "");
+      setPassword(userObject.password || "");
+      setShopId(userObject.shopid || null);
+      setName(userObject.name || "");
+    } else {
+      alert("Please make sure to note it down or take a screenshot of shop id and forgot your security code.");
+      setShowExit(true);
+      setRedAlert(true);
+    }
+  }, []);
+
   const SubmitCall = async () => {
     if (NewSecurityCode === "") {
       alert("Create security code.");
@@ -40,15 +54,7 @@ export default function ShopkeeperSecurityPage() {
       alert("Re-enter security code security code.");
       return;
     }
-
-    const ShopkeeperInfo = localStorage.getItem('ShopkeeperInfo');
-    const userObject = JSON.parse(ShopkeeperInfo);
-    if(userObject)
-    {
-      if(userObject.email){setEmail(userObject.email)}
-      if(userObject.password){setPassword(userObject.password)}
-      if(userObject.shopid){setShopId(userObject.shopid)}
-    try {
+    else if((Email !== "") && (Password !== "") && (ShopId !== null)){try {
         let result = await fetch('http://localhost:4000/shopkeeperforgotsecuritypassword', {
         method: 'put',
         body: JSON.stringify({email: Email, password: Password, shopid: ShopId, securitycode: NewSecurityCode}),
@@ -62,17 +68,16 @@ export default function ShopkeeperSecurityPage() {
       setShowLastMessage(true);       
      }
      else{
-       alert("Error");
+       alert("Server error, please reach out to the Lopilo Help Center.");
+       setShowExit(true);
+       setRedAlert(true);
      }}
      catch (error) {
      alert("Server error, please try again.");
-     console.error(error);
-   };}else
-   {
-     alert("Please make sure to note it down or take a screenshot of shop id and forgot your security code.");
      setShowExit(true);
      setRedAlert(true);
-   }
+     console.error(error);
+   };}
   }
 
   return (

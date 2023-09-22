@@ -35,10 +35,10 @@ app.post("/shopkeepersignup", async (req, resp) => {
       } else {
           const data = new User({name, email, phone, password, securitycode, shopid});
           const result = await data.save()
-          // const { password:_,...loggedResult } = result.toObject();
+          const { password:_,...loggedResult } = result.toObject();
           
           console.log("Sign-up successfully.");
-          resp.status(200).json({success: true, message: "Sign-up successfully."});
+          resp.status(200).json({success: true, message: "Sign-up successfully.",shopid});
       }
   } catch (error) {
       resp.status(500).json({success: false, message: "Internal Server Error."});

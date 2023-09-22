@@ -52,10 +52,11 @@ export default function Signup() {
         headers: {'Content-Type': 'application/json'}
       });
         result = await result.json();
-        const ShopId = result.shopid;
+        localStorage.clear();
         if(result.success){
+         const ShopId = result.shopid;
          console.log("Signup successfully.");
-         const ShopkeeperInfo = { email: Email, password: Createpassword, shopid: ShopId};
+         const ShopkeeperInfo = { email: Email, password: Createpassword, shopid: ShopId, name: Fullname};
          localStorage.setItem('ShopkeeperInfo', JSON.stringify(ShopkeeperInfo));
          navigate("/Shopkeeper-security-page");
         }
