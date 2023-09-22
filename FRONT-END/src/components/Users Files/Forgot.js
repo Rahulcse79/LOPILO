@@ -10,13 +10,17 @@ export default function ForgotPage() {
   
   const navigate = useNavigate();
 
+  const BackCall =()=>{
+    navigate("/Log-in");
+  }
+
   const CollectData = async () => {
     if (Email === "") {
       alert("Email is required.");
       return;
     }
     else if (NewPassword === "") {
-      alert("Enter your new password.");
+      alert("Enter your new password atleast 12 charter.");
       return;
     }
     else if (NewPassword.length < 12) {
@@ -64,7 +68,7 @@ export default function ForgotPage() {
         </div>
         <form>
           <div className='backbuttondiv'>
-          <a href="/Log-in" class="backbutton">&#8249;</a>
+          <a onClick={BackCall} class="backbutton">&#8249;</a>
           </div> 
           <h3>Forgot password</h3>
           <label htmlFor="username">Email<span style={{color: "red"}}>*</span></label>
@@ -72,7 +76,7 @@ export default function ForgotPage() {
           <label htmlFor="password">Enter OTP</label>
           <input type="number" value={Otp} onChange={(e)=>setOtp(e.target.value)} placeholder="Enter email OTP."/>
           <label htmlFor="password">New password<span style={{color: "red"}}>*</span></label>
-          <input type="password" value={NewPassword} onChange={(e)=>setNewPassword(e.target.value)} placeholder="Enter your new password."/>
+          <input type="password" value={NewPassword} onChange={(e)=>setNewPassword(e.target.value)} placeholder="Enter your new password atleast 12 charter."/>
           <label htmlFor="password">Re-enter new password<span style={{color: "red"}}>*</span></label>
           <input type="password" value={ReenterPassword} onChange={(e)=>setReenterPassword(e.target.value)} placeholder="Re-enter your new password."/>
           <button type='button' onClick={CollectData} className='allbuttonForgot'>Continue</button>

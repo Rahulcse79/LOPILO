@@ -11,13 +11,13 @@ export default function ForgotPage() {
   
   const navigate = useNavigate();
 
+  const BAckCall =()=>{
+    navigate("/Shopkeeperlogin");
+  }
+
   const CollectData = async () => {
     if (Email === "") {
       alert("Email is required.");
-      return;
-    }
-    else if (NewPassword === "") {
-      alert("Enter new Password.");
       return;
     }
     else if (ShopId === null) {
@@ -28,11 +28,15 @@ export default function ForgotPage() {
       alert("Incorrect shop id.");
       return;
     }
+    else if (NewPassword === "") {
+      alert("Enter new Password.");
+      return;
+    }
     else if (NewPassword.length < 12) {
       alert("Create your new password atleast 12 charter.");
       return;
     }
-    else if (ReenterPassword.length === "") {
+    else if (ReenterPassword === "") {
       alert("Re-enter your new password.");
       return;
     }
@@ -72,7 +76,7 @@ export default function ForgotPage() {
         </div>
         <form>
           <div className='backbuttondiv'>
-          <a href="Shopkeeperlogin" class="backbutton">&#8249;</a>
+          <a onClick={BAckCall} class="backbutton">&#8249;</a>
           </div> 
           <h3>Forgot password</h3>
           <label htmlFor="username">Email<span style={{color: "red"}}>*</span></label>
@@ -82,7 +86,7 @@ export default function ForgotPage() {
           <label htmlFor="password">Enter shop id<span style={{color: "red"}}>*</span></label>
           <input type="number" value={ShopId} onChange={(e)=>setShopId(e.target.value)} placeholder="Enter your shop id."/>
           <label htmlFor="password">New password<span style={{color: "red"}}>*</span></label>
-          <input type="password" value={NewPassword} onChange={(e)=>setNewPassword(e.target.value)} placeholder="Enter your new password."/>
+          <input type="password" value={NewPassword} onChange={(e)=>setNewPassword(e.target.value)} placeholder="Enter your new password atleast 12 charter."/>
           <label htmlFor="password">Re-enter new password<span style={{color: "red"}}>*</span></label>
           <input type="password" value={ReenterPassword} onChange={(e)=>setReenterPassword(e.target.value)} placeholder="Re-enter your new password."/>
           <button type='button'  onClick={CollectData} className='allbuttonForgot'>Continue</button>

@@ -12,6 +12,10 @@ export default function Signup() {
   const [Reenterpassword,setReenterpassword]=useState("");
 
   const navigate = useNavigate();
+
+  const BackCall =()=>{
+    navigate("/");
+  }
   
   const CollectData = async () => {
     if (Fullname === "") {
@@ -69,7 +73,7 @@ export default function Signup() {
           <div className="shape" />
         </div>
         <form>
-        <div className='backbuttondiv'><a href="/" class="backbutton">&#8249;</a></div>
+        <div className='backbuttondiv'><a onClick={BackCall} class="backbutton">&#8249;</a></div>
           <h3>Sign up</h3>
           <label htmlFor="username">Full name<span style={{color: "red"}}>*</span></label>
           <input type="text" value={Fullname} onChange={(e)=>setFullname(e.target.value)}  placeholder="Enter your full name."/>

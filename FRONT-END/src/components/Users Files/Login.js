@@ -8,6 +8,14 @@ export default function Login() {
   
   const navigate = useNavigate();
 
+  const BackCall =()=>{
+    navigate("/");
+  }
+  
+  const ForgotCall =()=>{
+    navigate("/Forgot");
+  }
+
   const CollectData = async () => {
     if (Email === "") {
       alert("Email is required.");
@@ -53,7 +61,7 @@ export default function Login() {
         </div>
         <form>
           <div className='backbuttondiv'>
-          <a href="/" class="backbutton">&#8249;</a>
+          <a onClick={BackCall} class="backbutton">&#8249;</a>
           </div> 
           <h3>Login</h3>
           <label htmlFor="username">Email<span style={{color: "red"}}>*</span></label>
@@ -61,7 +69,7 @@ export default function Login() {
           <label htmlFor="password">Password<span style={{color: "red"}}>*</span></label>
           <input type="password" value={Password} onChange={(e)=>setPassword(e.target.value)} placeholder="Enter your password."/>
           <div className='Forgotup'>
-          <a href="Forgot" className="Forgot">Forgot password</a>
+          <a onClick={ForgotCall} className="Forgot" style={{color: "#1138f8"}}>Forgot password</a>
           </div>
           <button type="button" onClick={CollectData} className='allbutton'>Log in</button>
           <div className="social">

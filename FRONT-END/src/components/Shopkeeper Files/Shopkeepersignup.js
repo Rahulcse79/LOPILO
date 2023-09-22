@@ -13,6 +13,10 @@ export default function Signup() {
 
   const navigate = useNavigate();
 
+  const BAckCall =()=>{
+    navigate("/Shopkeeper");
+  }
+
   const CollectData = async () => {
     if (Fullname === "") {
       alert("Full name is required.");
@@ -69,7 +73,7 @@ export default function Signup() {
           <div className="shape" />
         </div>
         <form>
-        <div className='backbuttondiv'><a href="Shopkeeper" class="backbutton">&#8249;</a></div> 
+        <div className='backbuttondiv'><a onClick={BAckCall} class="backbutton">&#8249;</a></div> 
         <h3>Shopkeeper sign up</h3>
           <label htmlFor="username">Full name<span style={{color: "red"}}>*</span></label>
           <input type="text" value={Fullname} onChange={(e)=>setFullname(e.target.value)}  placeholder="Enter your full name."/>

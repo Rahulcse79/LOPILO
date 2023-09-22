@@ -14,12 +14,12 @@ const SchemaSET = new mongoose.Schema({
     type: Number,
     required: true
   },
-  password: {
+  message: {
     type: String,
     required: true
-  },
-  });
+  }
+ });
 
-const Database = mongoose.model("user",SchemaSET);
+const Database = mongoose.model("message",SchemaSET);
 
 module.exports = Database;

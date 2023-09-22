@@ -10,8 +10,12 @@ export default function ShopkeeperForgotSecurity() {
   
   const navigate = useNavigate();
 
+  const BAckCall =()=>{
+    navigate("/Shopkeeperlogin");
+  }
+
   const CollectData = async () => {
-    if (ShopId === "") {
+    if (ShopId === null) {
       alert("Shop-id is required.");
       return;
     }
@@ -67,7 +71,7 @@ export default function ShopkeeperForgotSecurity() {
         </div>
         <form>
           <div className='backbuttondiv'>
-          <a href="/Shopkeeperlogin" class="backbutton">&#8249;</a>
+          <a onClick={BAckCall} class="backbutton">&#8249;</a>
           </div> 
           <h3>Forgot security code</h3>
           <label htmlFor="password">Enter shop id<span style={{color: "red"}}>*</span></label>

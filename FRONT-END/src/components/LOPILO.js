@@ -1,21 +1,67 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const Lopilo = () => {
   const [Name, setName] = useState("");
   const [Email, setEmail] = useState("");
+  const [Phone, setPhone] = useState(null);
   const [Message, setMessage] = useState("");
+
+  const navigate = useNavigate();
+
+  const HomeCall =()=>{
+    navigate("/");
+  }
+
+  const AboutCall =()=>{
+    navigate("/");
+  }
+
+  const PhotosCall =()=>{
+    navigate("/Photos");
+  }
+
+  const ShopkeeperCall =()=>{
+      navigate("/Shopkeeper");
+  }
+
+  const LoginCall =()=>{
+    navigate("/Log-in");
+  }
+
+  const SignupCall =()=>{
+    navigate("/Sign-up");
+  }
   
   const CollectData = async () => {
+    if (Phone === null) {
+      alert("Phone is required.");
+      return;
+    }
+    else if (Phone.length !== 10) {
+      alert("Please enter 10 digit phone number.");
+      return;
+    }
+
     try {
-        await fetch('http://localhost:4000/lopilo', {
+        let result = await fetch('http://localhost:4000/message', {
         method: 'post',
-        body: JSON.stringify({ Name, Email, Message}),
+        body: JSON.stringify({ name: Name, email: Email, phone: Phone, message: Message}),
         headers: {'Content-Type': 'application/json'}
       });
-    } 
-      catch (error) {
-      console.error(error);
-  }};
+      result = await result.json();
+
+    if(result.success){
+      alert("Your message has been sent successfully.");
+      navigate("/");
+     }
+     else{
+       alert("Please enter the correct details.");
+     }}
+     catch (error) {
+     console.error(error);
+   };
+  }
 
   return (
       <div>
@@ -36,13 +82,13 @@ const Lopilo = () => {
             <div className="collapse mt-sm-20 navbar-collapse" id="navbarSupportedContent">
               <ul className="navbar-nav mr-auto">
                 <li className="nav-item">
-                  <a href="#" className="nav-link">Home</a>
+                  <a onClick={HomeCall} className="nav-link" style={{cursor: "pointer"}}>Home</a>
                 </li>
                 <li className="nav-item">
-                  <a href="#" className="nav-link">About</a>
+                  <a onClick={AboutCall} className="nav-link" style={{cursor: "pointer"}}>About</a>
                 </li>
                 <li className="nav-item">
-                  <a href="Photos" className="nav-link">Photos</a>
+                  <a onClick={PhotosCall} className="nav-link" style={{cursor: "pointer"}}>Photos</a>
                 </li>
               </ul>
               <ul className="navbar-nav brand">
@@ -50,13 +96,13 @@ const Lopilo = () => {
               </ul>
               <ul className="navbar-nav ml-auto">
                 <li className="nav-item">
-                  <a href="Shopkeeper" className="nav-link">Shopkeeper</a>
+                  <a onClick={ShopkeeperCall} className="nav-link" style={{cursor: "pointer"}}>Shopkeeper</a>
                 </li>
                 <li className="nav-item">
-                  <a href="Log-in" className="nav-link">Log in</a>
+                  <a onClick={LoginCall} className="nav-link" style={{cursor: "pointer"}}>Log in</a>
                 </li>
                 <li className="nav-item last-item">
-                  <a href="Sign-up" className="nav-link">Sign up</a>
+                  <a onClick={SignupCall} className="nav-link" style={{cursor: "pointer"}}>Sign up</a>
                 </li>
               </ul>
             </div>
@@ -269,6 +315,9 @@ const Lopilo = () => {
                       <input className="form-control" type="email" value={Email} onChange={(e)=>setEmail(e.target.value)} placeholder="Email *" required />
                     </div>
                     <div className="form-group">
+                      <input className="form-control" type="number" value={Phone} onChange={(e)=>setPhone(e.target.value)} placeholder="Phone *" required />
+                    </div>
+                    <div className="form-group">
                     <textarea className="form-control" id="message" value={Message} onChange={(e)=>setMessage(e.target.value)} placeholder="Message *" rows={7} required defaultValue={""}/>
                     </div>
                     <div className="form-group ">
@@ -301,7 +350,7 @@ const Lopilo = () => {
                       <i className="ti-envelope icon-md" />
                     </div>
                     <div className="col-10">
-                      <h6 className="d-inline" >Email :<br /> <span className="text-muted">lopilo@gmail.com</span></h6>
+                      <h6 className="d-inline" >Email :<br /> <span className="text-muted">lopilocompany@gmail.com</span></h6>
                     </div>
                   </div>
                   <ul className="social-icons pt-4">

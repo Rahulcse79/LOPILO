@@ -9,6 +9,18 @@ export default function Shopkeeperlogin() {
 
   const navigate = useNavigate();
 
+  const ForgotPasswordCall =()=>{
+    navigate("/Shopkeeper-forgot-password");
+  }
+
+  const ShopkeeperCall =()=>{
+    navigate("/Shopkeeper");
+  }
+
+  const ForgotSecurityCall =()=>{
+    navigate("/Shopkeeper-forgot-security-code");
+  }
+
   const CollectData = async () => {
     if (Email === "") {
       alert("Email is required.");
@@ -59,7 +71,7 @@ export default function Shopkeeperlogin() {
         </div>
         <form>
           <div className='backbuttondiv'>
-          <a href="Shopkeeper" class="backbutton">&#8249;</a>
+          <a onClick={ShopkeeperCall} class="backbutton" style={{cursor: "pointer"}}>&#8249;</a>
           </div> 
           <h3>Shopkeeper login</h3>
           <label htmlFor="username">Email<span style={{color: "red"}}>*</span></label>
@@ -67,12 +79,12 @@ export default function Shopkeeperlogin() {
           <label htmlFor="password">Password<span style={{color: "red"}}>*</span></label>
           <input type="password" value={Password} onChange={(e)=>setPassword(e.target.value)} placeholder="Enter your Password."/>
           <label htmlFor="password">Shopkeeper security code<span style={{color: "red"}}>*</span></label>
-          <input type="password" value={SecurityCode} onChange={(e)=>setSecurityCode(e.target.value)} placeholder="Enter shopkeeper security code"/>
+          <input type="password" value={SecurityCode} onChange={(e)=>setSecurityCode(e.target.value)} placeholder="Enter shopkeeper security code."/>
           <div className='Forgotup'>
-          <a href="Shopkeeper-forgot-password" className="Forgot">Forgot password</a>
+          <a onClick={ForgotPasswordCall} className="Forgot" style={{color: "#1138f8"}}>Forgot password</a>
           </div>
           <div className='Forgotup'>
-          <a href="Shopkeeper-forgot-security-code" className="Forgot">Forgot security code</a>
+          <a onClick={ForgotSecurityCall} className="Forgot" style={{color: "#1138f8"}}>Forgot security code</a>
           </div>
           <button type="button" onClick={CollectData} className='allbutton'>log in</button>
         </form>

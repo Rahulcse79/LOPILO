@@ -1,12 +1,24 @@
 import React from 'react'
+import { useNavigate } from 'react-router-dom';
 
-export default function Addstore() {
-  
+const Shopkeeper = () =>{
+
+  const navigate = useNavigate();
+
+  const HomeCall =()=>{
+    navigate("/");
+  }
+
+  const ShopkeepersignupCall =()=>{
+    navigate("/Shopkeepersignup");
+  }
+
+  const ShopkeeperloginCall =()=>{
+    navigate("/Shopkeeperlogin");
+  }
+
   return (
     <div>
-      
-      <div>
-        
         {/*Main image section*/}
         <header className="header2">
         <div className="container">
@@ -26,28 +38,29 @@ export default function Addstore() {
             <div className="collapse mt-sm-20 navbar-collapse" id="navbarSupportedContent">
               <ul className="navbar-nav mr-auto">
               <li className="nav-item">
-                  <a href="/" className="nav-link">{"< "}Back</a>
+                  <a onClick={HomeCall} className="nav-link" style={{cursor: "pointer"}}>{"< "}Back</a>
                 </li>
               </ul>
               <ul className="navbar-nav mr-auto">
               <li className="nav-item">
-                  <a href="#" className="nav-link">Offers</a>
+                  <a  className="nav-link" style={{cursor: "pointer"}}>Offers</a>
                 </li>
               </ul>
               <ul className="navbar-nav ml-auto">
                 <li className="nav-item last-item">
-                  <a href="Shopkeeperlogin" className="nav-link">Shopkeeper log in</a>
+                  <a onClick={ShopkeeperloginCall} className="nav-link" style={{cursor: "pointer"}}>Shopkeeper log in</a>
                 </li>
               </ul>
               <ul className="navbar-nav ml-auto">
                 <li className="nav-item last-item">
-                  <a href="Shopkeepersignup" className="nav-link">Shopkeeper sign up</a>
+                  <a onClick={ShopkeepersignupCall} className="nav-link" style={{cursor: "pointer"}}>Shopkeeper sign up</a>
                 </li>
               </ul>
             </div>
           </div>
         </nav>
-      </div>
     </div>
   )
 }
+
+export default Shopkeeper;
