@@ -16,6 +16,8 @@ import ShopkeeperForgot from './components/Shopkeeper Files/ShopkeeperForgotPass
 import ShopkeeperForgotSecurity from './components/Shopkeeper Files/ShopkeeperForgotSecurity';
 import ShopkeeperAfterLogin from './components/Shopkeeper Files/ShopkeeperAfterlogin';
 import ShopkeeperSecurityPage from './components/Shopkeeper Files/ShopkeeperSecurityPage';
+import HelpCenter from './components/HelpCenter';
+import ChangePassword from './components/Users Files/ChangePassword';
 
 function App() {
   return (
@@ -38,6 +40,8 @@ function App() {
     <Route path="/Shopkeeper-forgot-security-code" element={<ShopkeeperForgotSecurity/>}/>
     <Route path="/Shopkeeper-after-login" element={<ShopkeeperAfterLogin/>}/>
     <Route path="/Shopkeeper-security-page" element={<ShopkeeperSecurityPage/>}/>
+    <Route path="/HelpCenter" element={<HelpCenter/>}/>
+    <Route path="/ChangePassword" element={<ChangePassword/>}/>
 
     <Route element = {<PrivateComponent/>}>  
   

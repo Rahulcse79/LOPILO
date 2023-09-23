@@ -38,9 +38,12 @@ export default function Login() {
       });
 
       result = await result.json();
-
+      localStorage.clear();
       if(result.success){
-       navigate("/Afterlogin");
+        localStorage.clear();
+        const userInfo = { email: Email, name: result.name,phone: result.phone};
+        localStorage.setItem('userInfo', JSON.stringify(userInfo));
+        navigate("/Afterlogin");
       }
       else{
         alert("Incorrect Email and password.");

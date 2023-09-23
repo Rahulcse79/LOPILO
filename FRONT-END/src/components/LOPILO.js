@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState} from 'react';
 import { useNavigate } from 'react-router-dom';
 
 const Lopilo = () => {
@@ -22,14 +22,17 @@ const Lopilo = () => {
   }
 
   const ShopkeeperCall =()=>{
-      navigate("/Shopkeeper");
+    localStorage.clear();  
+    navigate("/Shopkeeper");
   }
 
   const LoginCall =()=>{
+    localStorage.clear();
     navigate("/Log-in");
   }
 
   const SignupCall =()=>{
+    localStorage.clear();
     navigate("/Sign-up");
   }
   

@@ -4,7 +4,7 @@ const mongoose = require("mongoose");
 const SchemaSET = new mongoose.Schema({
   name: {
   type: String,
-  required: true
+  required: false
   },
   email: {
     type: String,
@@ -12,12 +12,36 @@ const SchemaSET = new mongoose.Schema({
   },
   phone: {
     type: Number,
-    required: true
+    required: false
   },
   password: {
     type: String,
     required: true
   },
+  image: {
+    type: String,
+    required: false
+  },
+  dateofbirth: {
+    type: Date,
+    required: false
+  },
+  addres: {
+    type: String,
+    required: false
+  },
+  pincode: {
+    type: Number,
+    required: false
+  },
+  city: {
+    type: String,
+    required: false
+  },
+  state: {
+    type: String,
+    required: false
+  }
   });
 
 const Database = mongoose.model("users",SchemaSET);
