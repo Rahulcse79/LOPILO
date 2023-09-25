@@ -49,7 +49,7 @@ export default function Shopkeeperlogin() {
 
         if(result.success){
          console.log("Login successfully.");
-         navigate("/Shopkeeper-after-login");
+         navigate("/shopkeeperprofile");
         }
         else{
           alert("Incorrect email or password.");

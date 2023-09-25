@@ -1,11 +1,9 @@
 import React,{useState,useEffect} from 'react'
 import { useNavigate } from 'react-router-dom';
 
-export default function Afterlogin() {
-  
 
- 
-  //  localStorage.clear(); pending.
+export default function Userprofile() {
+  
   const [Name,setName]=useState("");
   const [Email,setEmail]=useState("");
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
@@ -28,31 +26,60 @@ export default function Afterlogin() {
   }
 
   const closeDropdown = () => {
+    console.log("click")
     setIsDropdownOpen(false);
   }
 
-  useEffect(() => {
-    const userObject = JSON.parse(localStorage.getItem('userInfo'));
-    if (userObject) {
-
-      setName(userObject.name || "");
-      setEmail(userObject.email || "");
-      setPhone(userObject.phone || null);
-      setPreviewURL(userObject.image || "");
-      setAddress(userObject.address || "")
-      setPincode(userObject.pincode || null)
-      setCity(userObject.city || "")
-      setState(userObject.state || "")
-      setDateOfBirth(userObject.dateofbirth || null)
-
-    } else {
-      alert("Timeout, please log in again.");
-      setTimeout(() => {
-        // add spinner 
-        navigate("/");
-      }, 5000);
+  
+  const fetchUserProfile = async () => {
+    try {
+    const userInfo = JSON.parse(localStorage.getItem("UserInfo"));
+    const TokenCall = userInfo.token;
+    if (userInfo) {
+    const { phone, name, email,image} = userInfo;
+    setPhone(phone);
+    setName(name);
+    setEmail(email);
+    setImageSRC(image);
     }
+
+    let result = await fetch('http://localhost:4000/userprofile',{
+    method: 'GET',
+    headers: {
+      Authorization: TokenCall
+    }
+    });
+      result = await result.json();
+      if (result.success) {
+        console.log("Fetching user profile successful.");
+      } else {
+        console.error('Error fetching user profile');
+        navigate('/Log-in');
+      }
+    } catch (error) {
+      navigate('/Log-in');
+      console.error('Error fetching user profile:', error);
+    }
+  };
+
+  useEffect(() => {
+    fetchUserProfile();
+    
+    const handleClickOutside = (event) => {
+      const dropdown = document.getElementById('Dropdownuser');
+      if (dropdown && !dropdown.contains(event.target)) {
+        closeDropdown();
+      }
+    };
+  
+    document.addEventListener('click', handleClickOutside);
+    
+    return () => {
+      document.removeEventListener('click', handleClickOutside);
+    };
   }, []);
+  
+  
 
   const CorrectName=()=>{
     let FirstName = Name.split(' ')[0];
@@ -81,8 +108,9 @@ export default function Afterlogin() {
     
     if(previewURL != ""){
     setShowImage(true);
-    }
-    setShowSave(false);
+    }else{
+    setShowSave(false);}
+    handleUpload();
   }
 
   const handleImageUpload = (event) => {
@@ -96,29 +124,58 @@ export default function Afterlogin() {
     reader.readAsDataURL(file);
   };
   
- //name,image,dateofbirth,address,pincode,phone,city,state
-  const handleUpload = () => {
-    if (ImageSRC) {
+  
+  const handleUpload = async () => {
+    try {
       const formData = new FormData();
-      formData.append('image', ImageSRC);
-
-      fetch('http://localhost:3000/userupdateprofile', {
-        method: 'put',
-        body: formData,
-      })
-        .then(response => response.json())
-        .then(data => {
-          console.log('Image uploaded successfully:', data);
-        })
-        .catch(error => {
-          console.error('Error uploading image:', error);
-        });
-    } else {
-      console.error('No file selected.');
+      formData.append('email', Email);
+      formData.append('name', Name);
+      formData.append('phone', Phone);
+      formData.append('city', City);
+      formData.append('state', State);
+      formData.append('pincode', Pincode);
+      formData.append('address', Address);
+      formData.append('dateofbirth', DateOfBirth);
+  
+    } catch (error) {
+      alert("Error occurred while processing the request. Please try again.");
+      console.error(error);
     }
   };
+  
+  const sendToServer = async (formData) => {
+    try {
+      let result = await fetch('http://localhost:4000/userupdateprofile', {
+        method: 'put',
+        body: formData,
+      });
+  
+      result = await result.json();
+  
+      if (result.success) {
+        const UserInfo = {
+          name: result.responseData.name || '',
+          phone: result.responseData.phone || '',
+          city: result.responseData.city || '',
+          state: result.responseData.state || '',
+          dateofbirth: result.responseData.dateofbirth || '',
+          pincode: result.responseData.pincode || '',
+          address: result.responseData.address || '',
+          image: result.responseData.image || '',
+        };
+  
+        localStorage.setItem('UserInfo', JSON.stringify(UserInfo));
+        navigate("/userprofile");
+      } else {
+        alert("Request was not successful. Please try again.");
+      }
+    } catch (error) {
+      alert("An error occurred while processing your request. Please try again.");
+      console.error(error);
+    }
+  };
+  
 
- 
   return (
     <div>
      <nav className="navbar sticky-top navbar-expand-lg navbar-light bg-light" data-spy="affix" data-offset-top={510} style={{marginBottom: "10px"}}>
@@ -139,15 +196,17 @@ export default function Afterlogin() {
           <li className="nav-item" style={{display: "flex",justifyContent: "space-between",alignItems: "center"}}>
               { ShowImage && previewURL && (<img src={previewURL} alt="Logo" className="UserImageOFProfile"/>)}
             </li>
-          <li className="nav-item dropdown" onClick={toggleDropdown} onBlur={closeDropdown}>
-              <a className="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style={{cursor: "pointer"}}>{CorrectName()}</a>
-              <div className={`dropdown-menu ${isDropdownOpen ? 'show' : ''}`} aria-labelledby="navbarDropdown" style={{cursor: "pointer"}}>
-              <a onClick={EditCall} className="dropdown-item" >Update profile</a>
-              <a onClick={HelpCenter} className="dropdown-item" >Help center</a>
-              <a onClick={ChangePassword} className="dropdown-item" >Change Password</a>
-              <a onClick={LogOut} className="dropdown-item">Logout</a>
-              </div>
-            </li>
+            <li className="nav-item dropdown" onClick={toggleDropdown} onBlur={closeDropdown} id="Dropdownuser">
+      <a className="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style={{cursor: "pointer"}}>
+        {CorrectName()}
+      </a>
+      <div className={`dropdown-menu ${isDropdownOpen ? 'show' : ''}`} aria-labelledby="navbarDropdown" style={{cursor: "pointer"}}>
+        <a onClick={EditCall} className="dropdown-item">Update profile</a>
+        <a onClick={HelpCenter} className="dropdown-item">Help center</a>
+        <a onClick={ChangePassword} className="dropdown-item">Change Password</a>
+        <a onClick={LogOut} className="dropdown-item">Logout</a>
+      </div>
+    </li>
           </ul>
         </div>
       </div>
@@ -158,7 +217,7 @@ export default function Afterlogin() {
     <div className="header-mono" style={{display: "flex",alignItems: "center"}}>
       <div style={{marginTop: "90px",marginLeft: "50px",display: "flex",alignItems: "center"}}>
       {ShowImage && previewURL && (<img src={previewURL} alt="Logo" className="UserImageOFProfileQW"/>)}
-      <h1 className="header-title" style={{color: "white"}}><div>&nbsp;&nbsp;{Name.charAt(0).toUpperCase() + Name.slice(1).toLowerCase()}</div></h1>
+      <h1 className="header-title" style={{color: "white"}}><div>&nbsp;&nbsp;{Name.charAt(0).toUpperCase() + Name.slice(1)}</div></h1>
       </div>
       </div>
     </div>

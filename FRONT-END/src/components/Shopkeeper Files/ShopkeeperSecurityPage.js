@@ -17,7 +17,6 @@ export default function ShopkeeperSecurityPage() {
 
   const BackCall=()=>{
      if(ShowExit){
-     localStorage.clear();
      navigate("/Shopkeeper");
      }
      else
@@ -27,7 +26,6 @@ export default function ShopkeeperSecurityPage() {
   }
 
   const HomeCall=()=>{
-    localStorage.clear();
     navigate("/");
   }
 
@@ -63,7 +61,6 @@ export default function ShopkeeperSecurityPage() {
       result = await result.json();
 
     if(result.success){
-      localStorage.clear();
       setShowExit(true);
       setShowLastMessage(true);       
      }

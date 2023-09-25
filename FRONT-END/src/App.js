@@ -1,10 +1,8 @@
 import './App.css';
 import LOPILO from './components/LOPILO';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import PrivateComponent from './components/privateComponent'
 import Login from './components/Users Files/Login'
 import Signup from './components/Users Files/Signup'
-import AfterLogin from './components/Users Files/Afterlogin';
 import Home from './components/Home'
 import About from './components/About'
 import Photos from './components/Photos'
@@ -14,10 +12,11 @@ import Shopkeeperlogin from './components/Shopkeeper Files/Shopkeeperlogin';
 import Shopkeepersignup from './components/Shopkeeper Files/Shopkeepersignup';
 import ShopkeeperForgot from './components/Shopkeeper Files/ShopkeeperForgotPassword';
 import ShopkeeperForgotSecurity from './components/Shopkeeper Files/ShopkeeperForgotSecurity';
-import ShopkeeperAfterLogin from './components/Shopkeeper Files/ShopkeeperAfterlogin';
+import ShopkeeperProfile from './components/Shopkeeper Files/ShopkeeperProfile';
 import ShopkeeperSecurityPage from './components/Shopkeeper Files/ShopkeeperSecurityPage';
 import HelpCenter from './components/HelpCenter';
 import ChangePassword from './components/Users Files/ChangePassword';
+import Userprofile from './components/Users Files/UserProfile';
 
 function App() {
   return (
@@ -32,20 +31,15 @@ function App() {
     <Route path="/Log-in" element={<Login/>}/>
     <Route path="/Sign-up" element={<Signup/>}/>
     <Route path="/Forgot" element={<ForgotPage/>}/>
-    <Route path="/Afterlogin" element={<AfterLogin/>}/>
+    <Route path="/userprofile" element={<Userprofile/>}/>
     <Route path="/Shopkeeper" element={<Shopkeeper/>}/>
     <Route path="/Shopkeeperlogin" element={<Shopkeeperlogin/>}/>
     <Route path="/Shopkeepersignup" element={<Shopkeepersignup/>}/>
     <Route path="/Shopkeeper-forgot-password" element={<ShopkeeperForgot/>}/>
     <Route path="/Shopkeeper-forgot-security-code" element={<ShopkeeperForgotSecurity/>}/>
-    <Route path="/Shopkeeper-after-login" element={<ShopkeeperAfterLogin/>}/>
+    <Route path="/shopkeeperprofile" element={<ShopkeeperProfile/>}/>
     <Route path="/Shopkeeper-security-page" element={<ShopkeeperSecurityPage/>}/>
     <Route path="/HelpCenter" element={<HelpCenter/>}/>
-    <Route path="/ChangePassword" element={<ChangePassword/>}/>
-
-    <Route element = {<PrivateComponent/>}>  
-  
-    </Route>
   
     </Routes>
     </BrowserRouter>

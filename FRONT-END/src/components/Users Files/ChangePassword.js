@@ -18,7 +18,7 @@ export default function ChangePassword() {
   }
 
   const BackCall =()=>{
-    navigate("/Afterlogin");
+    navigate("/userprofile");
   }
 
   const CollectData = async () => {

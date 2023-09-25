@@ -52,7 +52,6 @@ export default function Signup() {
         headers: {'Content-Type': 'application/json'}
       });
         result = await result.json();
-        localStorage.clear();
         if(result.success){
          const ShopId = result.shopid;
          console.log("Signup successfully.");

@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 
-// Creating mongoose database connection
+// Mongoose schema
 const SchemaSET = new mongoose.Schema({
   name: {
   type: String,
@@ -8,7 +8,8 @@ const SchemaSET = new mongoose.Schema({
   },
   email: {
     type: String,
-    required: true
+    required: true,
+    unique: true
   },
   phone: {
     type: Number,
@@ -19,14 +20,20 @@ const SchemaSET = new mongoose.Schema({
     required: true
   },
   image: {
+    contentType: {
+      type: String,
+      required: false
+    },
+    data: {
+      type: Buffer,
+      required: false
+    }
+  },
+  dateofbirth: {
     type: String,
     required: false
   },
-  dateofbirth: {
-    type: Date,
-    required: false
-  },
-  addres: {
+  address: {
     type: String,
     required: false
   },

@@ -31,19 +31,52 @@ export default function Login() {
     }
    
     try {
+        const CorrectEmail = Email.toLowerCase();
         let result = await fetch('http://localhost:4000/userlogin',{
         method: 'post',
-        body: JSON.stringify({ email: Email, password: Password }),
+        body: JSON.stringify({ email: CorrectEmail, password: Password }),
         headers: {'Content-Type': 'application/json'}
       });
 
       result = await result.json();
-      localStorage.clear();
+
       if(result.success){
-        localStorage.clear();
-        const userInfo = { email: Email, name: result.name,phone: result.phone};
-        localStorage.setItem('userInfo', JSON.stringify(userInfo));
-        navigate("/Afterlogin");
+        
+        const UserInfo = {};
+
+        if (result.responseData.token) {
+          UserInfo.token = result.responseData.token;
+        }
+        if (result.responseData.name) {
+          UserInfo.name = result.responseData.name;
+        }
+        if (result.responseData.email) {
+          UserInfo.email = result.responseData.email;
+        }
+        if (result.responseData.phone) {
+          UserInfo.phone = result.responseData.phone;
+        }
+        if (result.responseData.city) {
+          UserInfo.city = result.responseData.city;
+        }
+        if (result.responseData.state) {
+          UserInfo.token = result.responseData.state;
+        }
+        if (result.responseData.dateofbirth) {
+          UserInfo.dateofbirth = result.responseData.dateofbirth;
+        }
+        if (result.responseData.pincode) {
+          UserInfo.pincode = result.responseData.pincode;
+        }
+        if (result.responseData.address) {
+          UserInfo.pincode = result.responseData.pincode;
+        }
+        if (result.responseData.image) {
+          UserInfo.image = result.responseData.image;
+        }
+
+        localStorage.setItem('UserInfo',JSON.stringify(UserInfo));
+        navigate("/userprofile");
       }
       else{
         alert("Incorrect Email and password.");

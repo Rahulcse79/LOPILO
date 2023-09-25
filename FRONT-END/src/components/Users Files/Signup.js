@@ -46,9 +46,10 @@ export default function Signup() {
     }
 
     try {
+        const CorrectEmail = Email.toLowerCase();
         let result = await fetch('http://localhost:4000/usersignup', {
         method: 'post',
-        body: JSON.stringify({ name: Fullname, email: Email, phone: Phone, password: Createpassword}),
+        body: JSON.stringify({ name: Fullname, email: CorrectEmail, phone: Phone, password: Createpassword}),
         headers: {'Content-Type': 'application/json'}
       });
       result = await result.json();

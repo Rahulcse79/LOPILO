@@ -3,11 +3,19 @@ const cors = require("cors");
 const mongoose = require('mongoose');
 require("./configuration");
 const User = require("./UserSchema");
+const jwt = require('jsonwebtoken');
+const bodyParser = require('body-parser');
+const multer = require('multer');
+const upload = multer({dest: 'uploads/'})
 
 // express app shorthands
 const app = express();
 app.use(cors());
 const PORT = 4000;
+
+// Set the maximum request size.
+app.use(bodyParser.json({ limit: '50mb' }));
+app.use(bodyParser.urlencoded({ limit: '50mb', extended: true }));
 
 // parses then request body to json
 app.use(express.json());
@@ -21,7 +29,7 @@ app.put("/forgotpassword", async (req, resp) => {
         if (existingUser) {
             existingUser.password =password;
             await existingUser.save();
-            console.log("Your password has been changed.");
+         
             resp.status(200).json({ success: true, message: "Your password has been changed." });
         }
         else
@@ -34,6 +42,30 @@ app.put("/forgotpassword", async (req, resp) => {
     }
 });
 
+const verifyToken = (req, res, next) => {
+    const token = req.header('Authorization');
+    if (!token) {
+      return res.status(401).json({ message: 'Access denied, No token provided.' });
+    } 
+    jwt.verify(token, 'LOPILO', (err, decoded) => {
+      if (err) {
+        return res.status(401).json({ message: 'Invalid token' });
+      }
+      req.user = decoded;
+      next();
+    });
+  };
+  
+
+  // User profile api.
+  app.get('/userprofile', verifyToken, (req, resp) => {
+    resp.json({
+      success: true,
+      message: 'Access granted to profile.',
+      user: req.user
+    });
+  });
+
 // User login api.
 app.post("/userlogin", async (req, resp) => {
     try {
@@ -42,9 +74,11 @@ app.post("/userlogin", async (req, resp) => {
         const existingUser = await User.findOne({ email, password });
         
         if (existingUser) {
-            const { password: _, ...loggedResult } = existingUser.toObject();
-
-            const responseData = {
+           const secretKey = "LOPILO";
+           const token = await jwt.sign({ id: existingUser._id, username: existingUser.name }, secretKey, { expiresIn: '10h' });
+           const { password: _, ...loggedResult } = existingUser.toObject();
+           const responseData = {
+                token,
                 success: true,
                 message: "Login successful.",
             };
@@ -61,8 +95,8 @@ app.post("/userlogin", async (req, resp) => {
             if (loggedResult.dateofbirth !== undefined) {
                 responseData.dateofbirth = loggedResult.dateofbirth;
             }
-            if (loggedResult.addres !== undefined) {
-                responseData.addres = loggedResult.addres;
+            if (loggedResult.address !== undefined) {
+                responseData.address = loggedResult.address;
             }
             if (loggedResult.pincode !== undefined) {
                 responseData.pincode = loggedResult.pincode;
@@ -73,9 +107,11 @@ app.post("/userlogin", async (req, resp) => {
             if (loggedResult.state !== undefined) {
                 responseData.state = loggedResult.state;
             }
+            if (loggedResult.email !== undefined) {
+                responseData.email = loggedResult.email;
+            }
 
-            resp.status(200).json(responseData);
-            
+            resp.status(200).json({responseData, success: true, message: "Login successful."});
             console.log("Login successful.");
         } else {
             console.log("User not found.");
@@ -88,51 +124,63 @@ app.post("/userlogin", async (req, resp) => {
 });
 
 // User update Api call.
-app.put("/userupdateprofile", async (req, resp) => {
+app.put("/userupdateprofile",upload.single('image') ,async (req, resp) => {
     try {
-        const { name, image, dateofbirth, addres, pincode, phone, city, state } = req.body;
+        const { email, name, image,dateofbirth, address, pincode, phone, city, state } = req.body;
+
+        if (!email) {
+            return resp.status(400).json({
+                success: false,
+                message: "Email is required."
+            });
+        }
+
+        const formattedImage = {
+            contentType: 'image/jpeg',
+            data: Buffer.from(image, 'base64')
+        };
+
         const existingUser = await User.findOne({ email });
 
-        if (existingUser) {
-            if (name !== undefined) {
-                existingUser.name = name;
-            }
-            if (image !== undefined) {
-                existingUser.image = image;
-            }
-            if (dateofbirth !== undefined) {
-                existingUser.dateofbirth = dateofbirth;
-            }
-            if (addres !== undefined) {
-                existingUser.addres = addres;
-            }
-            if (pincode !== undefined) {
-                existingUser.pincode = pincode;
-            }
-            if (phone !== undefined) {
-                existingUser.phone = phone;
-            }
-            if (city !== undefined) {
-                existingUser.city = city;
-            }
-            if (state !== undefined) {
-                existingUser.state = state;
-            }
-
-            const result = await existingUser.save();
-            const { password: _, ...loggedResult } = result.toObject();
-            const image = loggedResult.image;
-
-            resp.status(200).json({
-                success: true,
-                message: "Update successful."
-            }, image);
-        } else {
-            resp.status(404).json({
+        if (!existingUser) {
+            return resp.status(404).json({
                 success: false,
                 message: "User not found."
             });
         }
+
+        if (name !== undefined) {
+            existingUser.name = name;
+        }
+
+        if (image !== undefined) {
+            existingUser.image = formattedImage;
+        }
+
+        if (dateofbirth !== undefined) {
+            existingUser.dateofbirth = dateofbirth;
+        }
+
+        // ... (add similar checks for other fields)
+
+        const result = await existingUser.save();
+        const { password: _, ...loggedResult } = result.toObject();
+
+        const responseData = {};
+        if (image) responseData.image = loggedResult.image;
+        if (name) responseData.name = loggedResult.name;
+        if (dateofbirth) responseData.dateofbirth = loggedResult.dateofbirth;
+        if (city) responseData.city = loggedResult.city;
+        if (pincode) responseData.pincode = loggedResult.pincode;
+        if (phone) responseData.phone = loggedResult.phone;
+        if (address) responseData.address = loggedResult.address;
+        if (state) responseData.state = loggedResult.state;
+
+        resp.status(200).json({
+            responseData,
+            success: true,
+            message: "Update successful."
+        });
     } catch (error) {
         resp.status(500).json({
             success: false,
@@ -141,6 +189,8 @@ app.put("/userupdateprofile", async (req, resp) => {
         console.error(error.message);
     }
 });
+
+
 
 
 // User signup api.
@@ -171,6 +221,6 @@ mongoose.connection.on('error', (error) => {
 mongoose.connection.once('open', () => {
     console.log('Database connected.');
     app.listen(PORT, () => {
-        console.log('Server is running on port.', PORT);
+        console.log('Server is running on port:', PORT);
     });
 });

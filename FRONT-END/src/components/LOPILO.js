@@ -22,17 +22,14 @@ const Lopilo = () => {
   }
 
   const ShopkeeperCall =()=>{
-    localStorage.clear();  
     navigate("/Shopkeeper");
   }
 
   const LoginCall =()=>{
-    localStorage.clear();
     navigate("/Log-in");
   }
 
   const SignupCall =()=>{
-    localStorage.clear();
     navigate("/Sign-up");
   }
   
