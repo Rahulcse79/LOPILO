@@ -190,9 +190,6 @@ app.put("/userupdateprofile",upload.single('image') ,async (req, resp) => {
     }
 });
 
-
-
-
 // User signup api.
 app.post("/usersignup", async (req, resp) => {
     try {

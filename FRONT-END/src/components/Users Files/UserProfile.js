@@ -6,11 +6,16 @@ export default function Userprofile() {
   
   const [Name,setName]=useState("");
   const [Email,setEmail]=useState("");
+  const [AddAutoInput,setAddAutoInput]=useState("");
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [isDropdownOpenSuggestion, setIsDropdownOpenSuggestion] = useState(false);
+  const [ShowEmailPhone, setShowEmailPhone] = useState(true);
+  const [AddSuggestionShow, setAddSuggestionShow] = useState(false); 
   const [ShowImage, setShowImage] = useState(false);
   const [ShowSave, setShowSave] = useState(false);
   const [ImageSRC, setImageSRC]=useState(null)
   const [UpdateName, setUpdateName]=useState(Name)
+  const [UpdateSearch, setUpdateSearch]=useState("");
   const [Phone, setPhone]=useState(null)
   const [previewURL, setPreviewURL] = useState("");
   const [DateOfBirth, setDateOfBirth] = useState(null);
@@ -18,8 +23,87 @@ export default function Userprofile() {
   const [Pincode,setPincode]= useState(null);
   const [City,setCity]=useState("");
   const [State,setState]= useState("");
+  const [SuggestionArray,setSuggestionArray]= useState([]);
+  const [AnsSuggestionArray,setAnsSuggestionArray]= useState([]);
 
-  const navigate = useNavigate();
+  const navigate = useNavigate(); 
+
+  class Trie {
+    constructor(data) {
+        this.data = data;
+        this.children = new Array(26).fill(null);
+        this.isTerminal = false;
+    }
+  }
+
+  function insert(root, word) {
+ 
+    if (word.length === 0) {
+        root.isTerminal = true;
+        return;
+    }
+    const ch = word[0];
+    const idx = ch.charCodeAt(0) - 'a'.charCodeAt(0);
+    let child;
+    if (root.children[idx] !== null) {
+        child = root.children[idx];
+    } else {
+        child = new Trie(ch);
+        root.children[idx] = child;
+    }
+    insert(child, word.substr(1));
+}
+
+function FindSuggestion(curr, prefix, temp) {
+  if (curr.isTerminal === true) {
+      temp.push(prefix);
+  }
+  for (let ch = 'a'; ch <= 'z'; ch = String.fromCharCode(ch.charCodeAt(0) + 1)) {
+      const idx = ch.charCodeAt(0) - 'a'.charCodeAt(0);
+      const next = curr.children[idx];
+      if (next) {
+          prefix += ch;
+          FindSuggestion(next, prefix, temp);
+          prefix = prefix.slice(0, -1);
+      }
+  }
+}
+
+function suggestion(root, word) {
+  const ans = [];
+  let prefix = "";
+  let prev = root;
+  for (let i = 0; i < word.length; i++) {
+      const ch = word[i];
+      const idx = ch.charCodeAt(0) - 'a'.charCodeAt(0);
+      const curr = prev.children[idx];
+      if (curr !== null) {
+          prefix += ch;
+          const temp = [];
+          FindSuggestion(curr, prefix, temp);
+          ans.push(temp);
+          prev = curr;
+      } else {
+          return ans;
+      }
+  }
+  return ans;
+}
+
+const SuggestionMainFunction = async (v) => {
+  const root = new Trie('-');
+  
+  for (const it of v) {
+      insert(root, it);
+  }
+
+  const ans = await suggestion(root, UpdateSearch);
+
+  if (UpdateSearch.length > 1) {
+      setAnsSuggestionArray(ans[(UpdateSearch.length) - 1]);
+  }
+}
+
 
   const toggleDropdown = () => {
     setIsDropdownOpen(!isDropdownOpen);
@@ -29,7 +113,6 @@ export default function Userprofile() {
     console.log("click")
     setIsDropdownOpen(false);
   }
-
   
   const fetchUserProfile = async () => {
     try {
@@ -64,7 +147,8 @@ export default function Userprofile() {
 
   useEffect(() => {
     fetchUserProfile();
-    
+    ComeingSuggestationData();
+    SuggestionMainFunction(SuggestionArray);
     const handleClickOutside = (event) => {
       const dropdown = document.getElementById('Dropdownuser');
       if (dropdown && !dropdown.contains(event.target)) {
@@ -78,13 +162,93 @@ export default function Userprofile() {
       document.removeEventListener('click', handleClickOutside);
     };
   }, []);
-  
-  
 
   const CorrectName=()=>{
     let FirstName = Name.split(' ')[0];
     FirstName = FirstName.charAt(0).toUpperCase() + FirstName.slice(1);
     return FirstName
+  }
+
+  const Suggestion = () =>{
+    let str = UpdateSearch.replace(/\s/g, '');
+    SuggestionMainFunction(SuggestionArray);
+  }
+
+  const CheckValidString = (AddAutoInput) => {
+    for(let i = 0; i < AddAutoInput.length; i++) {
+      const charCode = AddAutoInput.charCodeAt(i);
+      if(charCode < 97 || charCode > 122) {
+        return 0;
+      }
+    }
+  
+    return 1;
+  }
+
+  const ComeingSuggestationData = async() => {   
+    try {
+        let result = await fetch('http://localhost:4001/addautosuggestion', {  
+            method: 'get',
+            headers: {'Content-Type': 'application/json'}
+        });
+        result = await result.json();
+        if(result.success){
+            const suggestionDataArray = result.existingUser.map(user => user.suggestionstring);
+            setSuggestionArray(suggestionDataArray);
+        } else {
+            alert("Suggestion Data Failed.");
+        }
+    } catch (error) {
+        alert("Server error, please try again.");
+        console.log(error);
+    }
+}
+
+  const AddStrignInAutoSuggestionAPICall = async() => {   
+    
+    if(AddAutoInput === "")
+    {
+      alert("String is required.");
+      return;
+    }
+    else if(!CheckValidString(AddAutoInput))
+    {
+      alert("Invalid String.");
+      return;
+    }
+    
+    try {
+      let result = await fetch('http://localhost:4001/addautosuggestion', {  
+      method: 'post',
+      body: JSON.stringify({ suggestionstring: AddAutoInput}),
+      headers: {'Content-Type': 'application/json'}
+    });
+    result = await result.json();
+      if(result.success){
+    
+        alert("Added successfully.");
+        setAddAutoInput("");
+      }
+      else{
+        alert("Already string added.");
+      }
+    } 
+      catch (error) {
+      alert("Server error, please try again.");
+      console.log(error);
+    }
+
+  }
+
+  const AddStringCloseUpdateCall = () => {
+    setShowEmailPhone(true);
+    setAddSuggestionShow(false);
+  }
+
+  const CloseUpdateCall = () => {
+    setShowEmailPhone(true);
+    setAddSuggestionShow(false);
+    setShowSave(false);
   }
 
   const HelpCenter=()=>{
@@ -102,6 +266,13 @@ export default function Userprofile() {
 
   const EditCall=()=>{
     setShowSave(true);
+    setShowEmailPhone(false);
+  }
+
+  const StoreStringCall=()=>{
+    setShowSave(false);
+    setShowEmailPhone(false);
+    setAddSuggestionShow(true);
   }
 
   const SaveCall = ()=>{
@@ -175,7 +346,6 @@ export default function Userprofile() {
     }
   };
   
-
   return (
     <div>
      <nav className="navbar sticky-top navbar-expand-lg navbar-light bg-light" data-spy="affix" data-offset-top={510} style={{marginBottom: "10px"}}>
@@ -186,10 +356,21 @@ export default function Userprofile() {
           </ul>
           <ul className="navbar-nav mr-auto">
           <div className="input-group mb-3">
-          <input type="text" className="form-control" placeholder="Search" aria-label="Search" aria-describedby="basic-addon2" />
-          <div className="input-group-append">
+          <input type="text" className="form-control" value={UpdateSearch} onChange={(e) => {setUpdateSearch(e.target.value); SuggestionMainFunction(SuggestionArray);}}  placeholder="Search" aria-label="Search" aria-describedby="basic-addon2" />
+    <div className="input-group-append">
           <button className="btn btn-outline-secondary" type="button">Search</button>
+          
+          <li className="nav-item dropdown" id="Dropdownuser1">
+      <a className="nav-link dropdown-toggle" id="navbarDropdown1" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+      </a>
+      <div className={`dropdown-menu ${ (UpdateSearch.length>0)? 'show' :''}`} aria-labelledby="navbarDropdown" style={{cursor: "pointer", marginLeft: "-277px",marginTop: "1px"}}>
+        {AnsSuggestionArray.map((item, index) => (
+          <a key={index} className="dropdown-item">{item}</a>
+        ))}
+      </div>
+    </li>
           </div>
+          
           </div>
           </ul>
           <ul className="navbar-nav ml-auto">
@@ -204,6 +385,7 @@ export default function Userprofile() {
         <a onClick={EditCall} className="dropdown-item">Update profile</a>
         <a onClick={HelpCenter} className="dropdown-item">Help center</a>
         <a onClick={ChangePassword} className="dropdown-item">Change Password</a>
+        <a onClick={StoreStringCall} className="dropdown-item">Store string suggestion</a>
         <a onClick={LogOut} className="dropdown-item">Logout</a>
       </div>
     </li>
@@ -225,21 +407,35 @@ export default function Userprofile() {
     </div>
     </header>
     </div>
-      {ShowSave?(<div className="form-container" style={{marginTop: "20px"}}>
+      {ShowSave && (<div className="form-container" style={{marginTop: "20px"}}>
      <form>
         <h4>Update your profile</h4>
         <div className="form-group">
           <label htmlFor="name" className="label">Profile photo</label>
-          <input type="file" accept="image/*" onChange={handleImageUpload} style={{}}/>
+          <input type="file" accept="image/*" onChange={handleImageUpload} style={{cursor: "pointer"}}/>
         </div>
         <div className="form-group">
           <label htmlFor="name" className="label">Update name</label>
           <input type="text" value={UpdateName} onChange={(e)=>setUpdateName(e.target.value)} className="input-field" required placeholder='Enter your name.'/>
         </div>
         <button type="button" onClick={SaveCall} className="submit-button">Save</button>
+        <button type="button" onClick={CloseUpdateCall} className="submit-button" style={{marginTop: "10px"}}>Back</button>
       </form>
-      </div>):
-      (<div>
+      </div>)}
+
+      {AddSuggestionShow && (<div className="form-container" style={{marginTop: "20px"}}>
+     <form>
+        <h4>Add string in Api</h4>
+        <div className="form-group">
+          <label htmlFor="name" className="label">Enter string</label>
+          <input type="text" value={AddAutoInput} onChange={(e)=>setAddAutoInput(e.target.value)} className="input-field" required placeholder='Enter string.'/>
+        </div>
+        <button type="button" onClick={AddStrignInAutoSuggestionAPICall} className="submit-button">Add</button>
+        <button type="button" onClick={AddStringCloseUpdateCall} className="submit-button" style={{marginTop: "10px"}}>Back</button>
+      </form>
+      </div>)}
+
+      {ShowEmailPhone && (<div>
         {/*Section*/}
       <div>
       <section className="bg-dark sectionshopkeeper2" style={{display: "flex",justifyContent: "space-between",alignItems: "center"}}>
@@ -250,6 +446,7 @@ export default function Userprofile() {
       </div>
 
       </div>)}
+     
     </div>
   )
 }
